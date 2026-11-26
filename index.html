@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>国声PJ | 資料一覧</title>
+  <title>国声PJ | 11月26日 資料一覧</title>
   <style>
     :root { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif; color: #17304b; background: #f5f8fc; }
     * { box-sizing: border-box; }
@@ -29,19 +29,24 @@
 </head>
 <body>
   <header><div class="wrap">
-    <p class="eyebrow">KUNIKOE PROJECT</p>
-    <h1>国声PJ｜資料一覧</h1>
-    <p>閲覧したい資料を選択してください。ダウンロードせず、ブラウザでそのまま開けます。</p>
+    <h1>国声PJ｜11月26日 資料一覧</h1>
   </div></header>
   <main class="wrap">
-    <h2>公開資料 <span id="count"></span></h2>
     <div id="list"><div class="status">資料を読み込んでいます…</div></div>
-    <p class="note">資料はGitHub Pagesで公開しています。公開リポジトリに追加されたHTMLファイルが、この一覧に反映されます。</p>
   </main>
   <script>
+    const label = name => {
+      if (name.startsWith("1126国声PJ")) return "課題と提言案まとめ";
+      if (name.includes("政策提言一覧") || name.includes("14グループ整理")) return "政策提言案グループ整理";
+      if (name.startsWith("20261124")) return "完成スライド構成案";
+      return name.replace(/\.html?$/i, "").replace(/_/g, " ");
+    };
+    const order = name => {
+      const title = label(name);
+      return ["課題と提言案まとめ", "政策提言案グループ整理", "完成スライド構成案"].indexOf(title) < 0 ? 99 : ["課題と提言案まとめ", "政策提言案グループ整理", "完成スライド構成案"].indexOf(title);
+    };
     (async () => {
       const list = document.getElementById("list");
-      const count = document.getElementById("count");
       try {
         const response = await fetch("https://api.github.com/repos/verybluegill/KunikoePJ/contents/", {
           headers: { Accept: "application/vnd.github+json" }
@@ -49,8 +54,7 @@
         if (!response.ok) throw new Error("GitHub API: " + response.status);
         const files = (await response.json())
           .filter(file => file.type === "file" && /\.html?$/i.test(file.name) && file.name.toLowerCase() !== "index.html")
-          .sort((a, b) => a.name.localeCompare(b.name, "ja"));
-        count.textContent = "(" + files.length + ")";
+          .sort((a, b) => order(a.name) - order(b.name) || a.name.localeCompare(b.name, "ja"));
         list.replaceChildren();
         if (!files.length) {
           list.innerHTML = '<div class="status">公開できるHTMLファイルがまだありません。</div>';
@@ -65,7 +69,7 @@
           symbol.textContent = "▤";
           const title = document.createElement("span");
           title.className = "name";
-          title.textContent = file.name.replace(/\.html?$/i, "").replace(/_/g, " ");
+          title.textContent = label(file.name);
           const arrow = document.createElement("span");
           arrow.className = "arrow";
           arrow.textContent = "↗";
