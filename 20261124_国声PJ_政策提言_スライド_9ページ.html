@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>国声PJ｜現場の声から考える政策提言</title>
+<style>
+  :root {
+    color-scheme: light;
+    --navy: #102e48;
+    --ink: #223b50;
+    --blue: #235f83;
+    --muted: #4e687a;
+    --line: #cbdbe5;
+    --pale: #ecf3f7;
+    --wash: #f5f8fa;
+    --white: #fff;
+    font-family: "Yu Gothic UI", "Hiragino Sans", Meiryo, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    background: #cfdbe4;
+    color: var(--ink);
+  }
+  h1, h2, h3, p, blockquote, figure, ul, ol, dl, dd { margin: 0; }
+  ul, ol { padding: 0; }
+  button { font: inherit; }
+  .workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-width: 0;
+    min-height: 0;
+  }
+  .stage {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .stage:focus { outline: none; }
+  .deck {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1280px;
+    height: 720px;
+    transform: translate(-50%, -50%) scale(var(--scale, 1));
+    box-shadow: 0 14px 42px #102e4826;
+  }
+  .slide {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 1280px;
+    height: 720px;
+    padding: 29px 63px 42px;
+    border-top: 7px solid var(--blue);
+    background: var(--white);
+    color: var(--ink);
+    line-height: 1.43;
+    line-break: strict;
+    overflow-wrap: anywhere;
+  }
+  .slide:focus { outline: none; }
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .masthead b { color: var(--navy); font-weight: 750; }
+  .title {
+    display: flex;
+    align-items: baseline;
+    margin: 22px 0 20px;
+    color: var(--navy);
+    font-size: 38px;
+    font-weight: 750;
+    line-height: 1.23;
+  }
+  .title-index {
+    flex: none;
+    color: var(--blue);
+    font-size: 23px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+  .title-divider { color: #7697ad; padding: 0 7px; font-size: 28px; }
+  .content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .subhead { color: var(--navy); font-size: 25px; font-weight: 700; }
+  .label { color: var(--blue); font-size: 18px; font-weight: 750; }
+  .takeaway {
+    padding: 11px 0 0;
+    border-top: 2px solid var(--line);
+    color: var(--navy);
+    font-size: 26px;
+    font-weight: 750;
+  }
+  .fine { color: var(--muted); font-size: 17px; }
+  .context {
+    padding: 10px 16px;
+    border-left: 4px solid #76a0b8;
+    background: var(--wash);
+    font-size: 21px;
+  }
+  .context strong, .role-line strong { color: var(--blue); }
+  .role-heading { font-size: 21px; color: var(--blue); }
+  .role-line { padding: 12px 17px; background: var(--pale); font-size: 21px; }
+
+  /* P1 — 現場の声 */
+  .voice-field {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 18px 22px;
+    padding: 16px 23px 21px;
+    background: var(--pale);
+  }
+  .voice {
+    position: relative;
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-height: 120px;
+    margin: 0;
+    padding: 13px 17px 12px;
+    border: 1px solid #b9cfdd;
+    border-radius: 11px;
+    background: var(--white);
+  }
+  .voice:nth-child(4) { grid-column: 2 / span 2; }
+  .voice::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 28px;
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    border-right: 1px solid #b9cfdd;
+    border-bottom: 1px solid #b9cfdd;
+    background: var(--white);
+  }
+  .voice p { font-size: 23px; font-weight: 650; }
+  .lead-note .fine { margin-top: 8px; }
+
+  /* P5 — 役割別の整理 */
+  .authority {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 21px;
+  }
+  .authority th, .authority td { padding: 12px 14px; text-align: left; vertical-align: middle; }
+  .authority thead th { background: var(--navy); color: var(--white); font-size: 19px; padding-block: 10px; }
+  .authority thead th:nth-child(1) { width: 27%; }
+  .authority thead th:nth-child(2) { width: 34%; }
+  .authority thead th:nth-child(3) { background: #dce9f1; color: var(--navy); }
+  .authority tbody th { color: var(--navy); }
+  .authority tbody tr { border-bottom: 1px solid var(--line); }
+  .authority tbody td:last-child { background: var(--wash); }
+  .support-band { padding: 12px 16px; border-left: 4px solid #5787a4; background: var(--pale); }
+  .support-band p { font-size: 21px; font-weight: 700; }
+  .authority-notes { display: grid; gap: 4px; }
+
+  /* P7・P8 — 具体策と担い手 */
+  .move h3 { color: var(--navy); font-size: 24px; line-height: 1.3; }
+  .move p { margin-top: 5px; font-size: 21px; line-height: 1.35; }
+  .move-number {
+    display: inline-grid;
+    align-items: center;
+    justify-items: center;
+    min-width: 30px;
+    height: 27px;
+    border: 1px solid #9ab7c9;
+    color: var(--blue);
+    padding: 0 4px;
+    font-size: 16px;
+    font-weight: 750;
+    vertical-align: 2px;
+  }
+  .b-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 23px; }
+  .b-panels article { padding: 16px 15px 20px; border-top: 4px solid #5787a4; border-bottom: 1px solid var(--line); background: var(--wash); }
+  .b-panels .label { display: block; margin: 8px 0 13px; }
+  /* P9 — 国内取引と輸入確認 */
+  .market-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; list-style: none; margin-top: 6px; }
+  .market-flow li { position: relative; padding: 7px 8px; background: var(--pale); color: var(--navy); text-align: center; font-size: 21px; font-weight: 750; }
+  .market-flow li { align-content: center; min-height: 53px; }
+  .market-flow small { display: block; font-size: 16px; font-weight: 600; color: var(--muted); }
+  .market-flow li + li::before {
+    content: "→";
+    position: absolute;
+    left: -26px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    color: var(--blue);
+  }
+  .market-moves { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .market-moves article { padding: 10px 12px; border-top: 3px solid #5787a4; background: var(--wash); }
+  .market-moves .role, .import .role { margin-top: 7px; font-size: 19px; }
+  .import { display: grid; grid-template-columns: 134px minmax(0, 1fr); gap: 15px; align-items: start; padding: 10px 12px; border: 1px solid #b8ccd9; background: var(--pale); }
+  .import > .label { margin: 4px 0 0; }
+  .import .move h3 { font-size: 22px; }
+  .import .move p { font-size: 20px; margin-top: 2px; }
+
+  /* P10 — 資源管理の循環 */
+  .cycle { position: relative; padding-bottom: 22px; }
+  .cycle ol { display: grid; grid-template-columns: 1.22fr 1.1fr 0.9fr 1.05fr 0.9fr; gap: 25px; list-style: none; }
+  .cycle li { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 72px; padding: 6px 8px; background: var(--pale); text-align: center; }
+  .cycle li:nth-child(-n + 2) { border-top: 3px solid #5787a4; }
+  .cycle li + li::before { content: "→"; position: absolute; left: -25px; width: 25px; color: var(--blue); font-size: 20px; }
+  .cycle b { color: var(--navy); font-size: 20px; }
+  .cycle span { color: var(--muted); font-size: 16px; }
+  .cycle svg { position: absolute; left: 0; bottom: 0; display: block; width: 100%; height: 23px; }
+  .d-moves { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .d-moves .move { padding: 9px 12px; border-left: 3px solid #78a0b7; background: var(--wash); }
+  .d-moves .move h3 { font-size: 21px; }
+  .d-moves .move p { font-size: 20px; }
+
+  /* P11 — 目指す姿と意見交換 */
+  .closing { border-top-color: #8ebbd2; background: var(--navy); color: var(--white); }
+  .closing .masthead { border-color: #4a6b82; color: #c3d9e7; }
+  .closing .masthead b, .closing .title { color: var(--white); }
+  .closing .title-index, .closing .title-divider, .closing .label { color: #b9daed; }
+  .closing .goal { border-left: 5px solid #8ebbd2; padding: 3px 0 3px 22px; }
+  .goal blockquote { margin-top: 7px; font-size: 39px; font-weight: 750; line-height: 1.3; }
+  .question-list { list-style: none; margin-top: 6px; }
+  .question-list li { display: flex; align-items: baseline; gap: 14px; padding: 7px 0; border-bottom: 1px solid #4a6b82; font-size: 26px; }
+  .question-list span { color: #b9daed; font-size: 18px; font-variant-numeric: tabular-nums; font-weight: 700; }
+  .closing .final-line { color: #eff7fb; font-size: 22px; }
+
+  /* 9ページ版 — 主張とページ別レイアウト */
+  .content { gap: 10px; }
+  .claim {
+    color: var(--navy);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .voices-slide .voice-field { padding-block: 12px 19px; gap: 16px 22px; }
+  .voices-slide .voice { min-height: 109px; gap: 4px; padding-block: 10px; }
+  .voices-slide .voice p { font-size: 22px; line-height: 1.36; }
+  .voices-slide .lead-note .fine { margin-top: 5px; }
+
+  .domain-map { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 20px; }
+  .domain-total {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 9px;
+    padding: 12px;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 22px;
+    font-weight: 650;
+  }
+  .domain-total b { color: var(--white); font-size: 102px; line-height: 0.94; }
+  .domain-list { display: grid; gap: 10px; list-style: none; }
+  .domain {
+    display: grid;
+    grid-template-columns: 196px minmax(0, 1fr) 93px;
+    align-items: center;
+    gap: 14px;
+    min-height: 76px;
+    padding: 9px 16px;
+    border-left: 4px solid #5787a4;
+    background: var(--pale);
+  }
+  .domain h3 { color: var(--navy); font-size: 28px; }
+  .domain p { font-size: 22px; }
+  .domain .label { font-size: 18px; text-align: right; white-space: nowrap; }
+
+  .overview-map {
+    display: grid;
+    grid-template-columns: 145px 35px 175px 35px minmax(0, 1fr);
+    gap: 7px;
+    align-items: center;
+  }
+  .overview-metric {
+    display: grid;
+    min-height: 152px;
+    align-content: center;
+    justify-items: center;
+    padding: 15px 9px;
+    border-top: 4px solid #5787a4;
+    background: var(--pale);
+    color: var(--navy);
+    font-size: 20px;
+    text-align: center;
+  }
+  .overview-metric b { display: block; color: var(--blue); font-size: 53px; line-height: 1.05; }
+  .overview-metric p + p { margin-top: 7px; padding-top: 5px; border-top: 1px solid var(--line); }
+  .overview-arrow { color: var(--blue); font-size: 29px; text-align: center; }
+  .direction-list { display: grid; gap: 9px; list-style: none; }
+  .direction {
+    display: grid;
+    grid-template-columns: 31px minmax(0, 1fr) 97px;
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 8px;
+    padding: 6px 13px;
+    border-left: 4px solid #5787a4;
+    background: var(--wash);
+  }
+  .direction .letter { grid-row: 1 / 3; color: var(--blue); font-size: 29px; font-weight: 750; }
+  .direction h3 { color: var(--navy); font-size: 22px; }
+  .direction p { grid-column: 2; font-size: 19px; line-height: 1.33; }
+  .direction .label { grid-column: 3; grid-row: 1 / 3; font-size: 18px; text-align: right; }
+  .overview-lead { color: var(--navy); font-size: 21px; }
+
+  .cases-table thead th { background: var(--navy); color: var(--white); }
+  .cases-table thead th:nth-child(1) { width: 29%; }
+  .cases-table thead th:nth-child(2) { width: 43%; }
+  .cases-table thead th:nth-child(3) { background: #dce9f1; color: var(--navy); }
+  .cases-table tbody th, .cases-table tbody td { padding-block: 16px; }
+  .implementation .cases-table tbody th, .implementation .cases-table tbody td { padding-block: 12px; }
+  .implementation .cases-table tbody th { background: var(--pale); }
+  .implementation .support-band { padding-block: 10px; }
+
+  .field-voice {
+    display: grid;
+    grid-template-columns: 195px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 14px;
+    border-left: 4px solid #76a0b8;
+    background: var(--wash);
+  }
+  .field-voice blockquote { font-size: 21px; }
+  .organization .b-panels article { min-height: 159px; }
+  .improvement-title { color: var(--navy); font-size: 23px; font-weight: 700; }
+  .content .import { padding-block: 7px; }
+  .distribution .market-flow li { min-height: 39px; }
+  .distribution .role-line { padding-block: 7px; }
+  .distribution .market-moves article { padding-block: 7px; }
+  .market-pipeline { display: grid; grid-template-columns: 152px minmax(0, 1fr); align-items: center; gap: 10px; }
+  .market-pipeline .market-flow { margin: 0; }
+  .resource .cycle ol { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 23px; }
+  .resource .cycle li { min-height: 54px; }
+  .resource .cycle li:nth-child(-n + 3) { border-top: 3px solid #5787a4; }
+  .resource .cycle li + li::before { left: -23px; width: 23px; }
+  .resource .cycle li:nth-child(4) { border-left: 2px solid #a7becb; }
+  .resource .cycle b { font-size: 19px; }
+  .resource .takeaway { font-size: 23px; }
+  .closing .claim { color: #dfedf6; }
+
+  /* 操作欄と発表者ノート */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px 20px;
+    min-height: 54px;
+    padding: 6px 15px;
+    background: #f5f8fa;
+    border-top: 1px solid #b6cad7;
+  }
+  .toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+  .toolbar button, .notes button {
+    min-height: 36px;
+    padding: 3px 12px;
+    border: 1px solid #aebfca;
+    background: var(--white);
+    color: var(--navy);
+    border-radius: 4px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .toolbar button:hover:enabled, .notes button:hover { background: #e1edf5; }
+  .toolbar button:disabled { color: #677d8c; background: #edf2f5; cursor: default; }
+  button:focus-visible { outline: 3px solid #235f83; outline-offset: 2px; }
+  button[aria-pressed="true"] { background: #d6e7f1; border-color: #4d7691; }
+  .counter { min-width: 75px; color: var(--navy); font-size: 17px; font-weight: 750; text-align: center; font-variant-numeric: tabular-nums; }
+  .keyboard-hint { color: var(--muted); font-size: 14px; }
+  .notes {
+    display: flex;
+    flex-direction: column;
+    width: min(37vw, 460px);
+    min-height: 0;
+    padding: 20px;
+    border-left: 1px solid var(--line);
+    background: var(--white);
+    color: var(--ink);
+  }
+  .notes-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .notes h2 { font-size: 20px; color: var(--navy); }
+  .notes h3 { font-size: 17px; padding: 8px 0; border-block: 1px solid var(--line); }
+  .notes-body { overflow: auto; line-height: 1.7; margin-top: 10px; }
+  .notes-body p + p { margin-top: 10px; }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  @media (max-width: 840px) {
+    .keyboard-hint { display: none; }
+  }
+  @media (max-width: 600px) {
+    .workspace { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
+    .notes { width: 100%; max-height: 45dvh; border-left: 0; border-top: 1px solid var(--line); padding: 9px 14px; }
+    .toolbar { gap: 6px; padding-inline: 7px; }
+    .toolbar button { padding-inline: 7px; }
+    .counter { min-width: 54px; }
+  }
+  @page { size: 1280px 720px; margin: 0; }
+  @media print {
+    html, body, .workspace, .stage, .deck {
+      display: block;
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      transform: none;
+      overflow: visible;
+      box-shadow: none;
+    }
+    body { background: var(--white); }
+    .toolbar, .notes, #status { display: none !important; }
+    .deck > .slide, .deck > .slide[hidden] {
+      display: flex !important;
+      width: 1280px;
+      height: 720px;
+      break-inside: avoid;
+      break-after: page;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .deck > .slide:last-child { break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<main class="workspace" aria-label="国声PJの政策提言スライド">
+  <div class="stage" id="stage" tabindex="-1">
+    <div class="deck" id="deck">
+      <!-- 各 section がスライド1枚です。見出しと本文をここで編集できます。 -->
+      <section class="slide voices-slide" id="slide-1" aria-labelledby="title-1">
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-1"><span class="title-index">01</span><span class="title-divider">｜</span><span>水産業の現場から寄せられた声</span></h1>
+        <div class="content">
+          <p class="claim">出発点は、各地の漁業・水産業の現場から寄せられた具体的な困りごとである。</p>
+          <h2 class="subhead">現場の声（要約）</h2>
+          <div class="voice-field">
+            <blockquote class="voice"><p class="label">漁協加入</p><p>「漁協に加入を申請しても、結論がなかなか出ない」</p></blockquote>
+            <blockquote class="voice"><p class="label">漁協運営</p><p>「魚や船が減っても、手数料や事業の仕組みが変わらない」</p></blockquote>
+            <blockquote class="voice"><p class="label">買参資格</p><p>「買参資格がないから、資格に必要な取引実績を作れない」</p></blockquote>
+            <blockquote class="voice"><p class="label">クロマグロ枠</p><p>「クロマグロの漁獲枠がなければ、配分の根拠となる実績も作れない」</p></blockquote>
+            <blockquote class="voice"><p class="label">資源管理の効果検証</p><p>「磯焼け対策をした後、海が回復したかどうか追い続けられない」</p></blockquote>
+          </div>
+          <div class="lead-note">
+            <p class="takeaway"><strong>まず、これらの声を整理した。</strong></p>
+            <p class="fine">※参加者の経験・問題意識を要約した表現。逐語引用や個別事実の確認結果ではない。</p>
+          </div>
+        </div>
+      </section>
+      <section class="slide" id="slide-2" aria-labelledby="title-2" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-2"><span class="title-index">02</span><span class="title-divider">｜</span><span>現場の課題は22論点・4領域に整理できる</span></h1>
+        <div class="content">
+          <p class="claim">寄せられた問題を、発生する場面によって22論点・4領域に整理した。</p>
+          <div class="domain-map">
+            <div class="domain-total"><b>22</b>論点</div>
+            <ul class="domain-list" aria-label="4領域と論点番号">
+              <li class="domain"><h3>浜の利用</h3><p>組合員資格、漁場・漁港施設の利用</p><span class="label" aria-label="論点番号 01〜07">01〜07</span></li>
+              <li class="domain"><h3>漁協の運営</h3><p>役員・監査、手数料、事業の持続性</p><span class="label" aria-label="論点番号 08〜12">08〜12</span></li>
+              <li class="domain"><h3>取引と流通</h3><p>買参資格、競り・価格、流通の適正化</p><span class="label" aria-label="論点番号 13〜16">13〜16</span></li>
+              <li class="domain"><h3>資源管理</h3><p>漁獲枠配分、意思決定、管理効果</p><span class="label" aria-label="論点番号 17〜22">17〜22</span></li>
+            </ul>
+          </div>
+          <p class="takeaway"><strong>この4領域は、課題が現れる場面の分類である。</strong></p>
+        </div>
+      </section>
+      <section class="slide" id="slide-3" aria-labelledby="title-3" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-3"><span class="title-index">03</span><span class="title-divider">｜</span><span>65の改善案を4つの方向にまとめた</span></h1>
+        <div class="content">
+          <p class="claim">22論点に対応する65の政策提言案を14グループに束ね、さらにA〜Dの4方向に整理した。</p>
+          <p class="overview-lead"><strong>22論点から65の提言案へ。提言案を14グループに束ね、4方向に整理した。</strong></p>
+          <div class="overview-map">
+            <div class="overview-metric"><p><b>22</b>論点</p></div>
+            <div class="overview-arrow" aria-hidden="true">→</div>
+            <div class="overview-metric"><p><b>65</b>提言案</p><p><strong>14</strong>グループ</p></div>
+            <div class="overview-arrow" aria-hidden="true">→</div>
+            <ul class="direction-list" aria-label="提言の4つの方向">
+              <li class="direction"><span class="letter">A</span><h3>ルール・参入・是正</h3><p>条件を明確にし、参加・再確認の道筋をつくる</p><span class="label">G01〜G04</span></li>
+              <li class="direction"><span class="letter">B</span><h3>漁協の組織・経営</h3><p>地域に必要な組織の機能を維持する</p><span class="label">G05〜G07</span></li>
+              <li class="direction"><span class="letter">C</span><h3>取引・流通</h3><p>公正な取引と販売の選択肢を広げる</p><span class="label">G08〜G10</span></li>
+              <li class="direction"><span class="letter">D</span><h3>資源管理</h3><p>決定の根拠を示し、対策の効果を検証する</p><span class="label">G11〜G14</span></li>
+            </ul>
+          </div>
+          <p class="fine">※A〜Dは政策提言を検討するための整理案であり、最終決定した柱ではない。</p>
+        </div>
+      </section>
+      <section class="slide" id="slide-4" aria-labelledby="title-4" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-4"><span class="title-index">04</span><span class="title-divider">｜</span><span>A．参加条件と判断の仕組みを改善する</span></h1>
+        <div class="content">
+          <p class="claim">新たに参加したい人にも道筋が分かり、審査・配分の理由を確認できる仕組みを整えたい。</p>
+          <table class="authority cases-table" aria-label="事例ごとの改善案と決定主体">
+            <thead><tr><th scope="col">現場からの問題意識（要約）</th><th scope="col">何を変えたいか</th><th scope="col">主な決定主体</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">加入申請の結論が長く出ない</th><td>審査期間・追加資料・理由説明を明確にする</td><td>漁協</td></tr>
+              <tr><th scope="row">買参資格がなく実績を作れない</th><td>実績以外の信用確認・決済方法を検討する</td><td>市場開設者・運営者</td></tr>
+              <tr><th scope="row">漁獲枠がなく実績を作れない</th><td>増加分・未利用枠などの配分案を比較する</td><td>所管の大臣・知事</td></tr>
+            </tbody>
+          </table>
+          <p class="takeaway"><strong>参加条件を示し、判断を説明し、必要なら見直せるようにする。</strong></p>
+        </div>
+      </section>
+      <section class="slide organization" id="slide-5" aria-labelledby="title-5" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-5"><span class="title-index">05</span><span class="title-divider">｜</span><span>B．漁協が地域を支える機能を維持する</span></h1>
+        <div class="content">
+          <p class="claim">水揚げや担い手が変化する中でも、組合員に必要な漁協の機能を維持できるようにしたい。</p>
+          <figure class="field-voice"><figcaption class="label">現場からの声（要約）</figcaption><blockquote>「魚や船が減っても、手数料や組織の仕組みは昔のままではないか」</blockquote></figure>
+          <h2 class="improvement-title">改善したいこと</h2>
+          <div class="b-panels">
+            <article><div class="move"><h3><span class="move-number" aria-hidden="true">1</span> 人材・役割</h3><p>役員の研修と職務分担を整える。</p></div></article>
+            <article><div class="move"><h3><span class="move-number" aria-hidden="true">2</span> 経営の見える化</h3><p>監査を生かし、事業や支所の収支を確認する。</p></div></article>
+            <article><div class="move"><h3><span class="move-number" aria-hidden="true">3</span> 事業の見直し</h3><p>料金とサービスを点検し、共同化の効果を比較する。</p></div></article>
+          </div>
+          <p class="role-line"><strong>担う主体：</strong> 漁協の総会・理事会等。系統団体・行政は研修や事例共有で支援できる。</p>
+        </div>
+      </section>
+      <section class="slide distribution" id="slide-6" aria-labelledby="title-6" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-6"><span class="title-index">06</span><span class="title-divider">｜</span><span>C．公正な取引と販売の選択肢を広げる</span></h1>
+        <div class="content">
+          <p class="claim">取引条件を分かりやすくし、漁業者が販売先や方法を比較できる環境を整えたい。</p>
+          <figure class="field-voice"><figcaption class="label">現場からの声（要約）</figcaption><blockquote>「売り先が限られ、取引方法や価格・費用の内訳が分かりにくい」</blockquote></figure>
+          <div class="market-pipeline">
+            <p class="label">国内の取引・流通</p>
+            <ol class="market-flow"><li>漁業者</li><li>市場</li><li>流通・加工</li><li>買い手</li></ol>
+          </div>
+          <h2 class="improvement-title">改善したいこと</h2>
+          <div class="market-moves">
+            <article><div class="move"><h3><span class="move-number" aria-hidden="true">1</span> 市場の取引</h3><p>競り・相対取引の条件と取引記録を明確にする。</p></div></article>
+            <article><div class="move"><h3><span class="move-number" aria-hidden="true">2</span> 販売の選択肢</h3><p>販路を比較し、共同出荷や加工・冷凍も試す。</p></div></article>
+          </div>
+          <div class="import">
+            <p class="label">輸入時の確認</p>
+            <div class="move"><h3><span class="move-number" aria-hidden="true">3</span> 適正な流通</h3><p>IUU懸念水産物について、輸入時の確認体制を検討する。</p></div>
+          </div>
+          <p class="role-line"><strong>担う主体：</strong> 市場開設者・運営者、漁協・漁連、加工事業者、輸入を所管する行政機関等。</p>
+        </div>
+      </section>
+      <section class="slide resource" id="slide-7" aria-labelledby="title-7" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-7"><span class="title-index">07</span><span class="title-divider">｜</span><span>D．資源管理の決定と効果を検証できるようにする</span></h1>
+        <div class="content">
+          <p class="claim">資源管理の判断根拠を示し、実施した対策が資源・漁場にどう作用したかを確かめたい。</p>
+          <figure class="field-voice"><figcaption class="label">現場からの声（要約）</figcaption><blockquote>「枠配分の理由や、管理措置を続けた効果が見えにくい」</blockquote></figure>
+          <figure class="cycle" aria-label="資源管理の循環。見直しの結果を次の判断に反映する。">
+            <ol><li><b>判断の根拠</b></li><li><b>総量の設定</b></li><li><b>漁獲枠の配分</b></li><li><b>実施</b></li><li><b>効果検証</b></li><li><b>見直し</b></li></ol>
+            <svg viewBox="0 0 1154 23" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="#7296ad" stroke-width="2">
+              <path d="M 1067 0 V 17 H 87 V 2 M 81 8 L 87 2 L 93 8"/>
+            </svg>
+          </figure>
+          <h2 class="improvement-title">改善したいこと</h2>
+          <div class="d-moves">
+            <div class="move"><h3><span class="move-number" aria-hidden="true">1</span> 決定を分ける</h3><p>資源管理上の総量設定と、地域・漁法への配分を区別する。</p></div>
+            <div class="move"><h3><span class="move-number" aria-hidden="true">2</span> 参加機会を広げる</h3><p>会議の公募・審議資料・意見提出を改善する。</p></div>
+            <div class="move"><h3><span class="move-number" aria-hidden="true">3</span> 効果を検証する</h3><p>対策の実施記録と、資源・環境の変化を別々に確認する。</p></div>
+          </div>
+          <p class="takeaway"><strong>管理措置を実施して終わりにせず、検証結果を見直しにつなげる。</strong></p>
+        </div>
+      </section>
+      <section class="slide implementation" id="slide-8" aria-labelledby="title-8" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-8"><span class="title-index">08</span><span class="title-divider">｜</span><span>改善する方法と決定権限は一つではない</span></h1>
+        <div class="content">
+          <p class="claim">政策提言は一律の法改正要求ではない。既存制度でできる改善と、新たな制度が必要となる可能性を分けて考える。</p>
+          <table class="authority cases-table" aria-label="改善方法ごとの具体例と決定主体">
+            <thead><tr><th scope="col">改善の方法</th><th scope="col">具体例</th><th scope="col">主な決定主体</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">内部規程・事業の改善</th><td>加入審査の説明、料金とサービスの点検</td><td>漁協の総会・理事会等</td></tr>
+              <tr><th scope="row">市場・行政の運用改善</th><td>買参条件の見直し、配分案の比較、会議の意見受付</td><td>市場開設者、所管の大臣・知事等</td></tr>
+              <tr><th scope="row">制度改正の検討</th><td>資格審査委員会の法定義務化、特別な記録開示請求権</td><td>国会等（制度案は所管省庁で検討）</td></tr>
+            </tbody>
+          </table>
+          <div class="support-band">
+            <p class="label">決定を支える役割</p>
+            <p><strong>全漁連・県漁連等は、研修・事例共有・意見集約などで改善を支援できる。</strong></p>
+          </div>
+        </div>
+      </section>
+      <section class="slide closing" id="slide-9" aria-labelledby="title-9" hidden>
+        <header class="masthead"><b>国声PJ｜現場の声から考える政策提言</b><span>2026.11.24　政策提言の検討案</span></header>
+        <h1 class="title" id="title-9"><span class="title-index">09</span><span class="title-divider">｜</span><span>漁業を始め、続けられる条件を整える</span></h1>
+        <div class="content">
+          <p class="claim">現場の声と既存制度を生かし、関係者とともに改善できる条件を整えたい。</p>
+          <div class="goal">
+            <h2 class="label">国声PJが目指す姿</h2>
+            <blockquote>漁業を始め、続けられる条件を整え、<br>水産資源と漁場を将来に引き継ぐ。</blockquote>
+          </div>
+          <div>
+            <h2 class="label">今回、皆様に伺いたいこと</h2>
+            <ol class="question-list">
+              <li><span aria-hidden="true">01</span>現場の課題の捉え方に、見落としはないか。</li>
+              <li><span aria-hidden="true">02</span>既存の制度や良い取組を生かして、何を改善できるか。</li>
+              <li><span aria-hidden="true">03</span>関係者が協力して、まず取り組むべきことは何か。</li>
+            </ol>
+          </div>
+          <p class="final-line">※ここまでの政策提言は検討案。皆様の意見を踏まえて具体化したい。</p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <aside class="notes" id="notes" aria-labelledby="notes-heading" hidden>
+    <div class="notes-header">
+      <h2 id="notes-heading">発表者ノート</h2>
+      <button type="button" id="close-notes">閉じる</button>
+    </div>
+    <h3 id="notes-title"></h3>
+    <div class="notes-body" id="notes-body" tabindex="0"></div>
+  </aside>
+</main>
+<nav class="toolbar" aria-label="スライド操作">
+  <div class="toolbar-group">
+    <button type="button" id="previous" aria-label="前のスライド" aria-keyshortcuts="ArrowLeft" disabled>← 前へ</button>
+    <output class="counter" id="counter" role="status" aria-label="現在のページ／総ページ数">1 / 9</output>
+    <button type="button" id="next" aria-label="次のスライド" aria-keyshortcuts="ArrowRight Space">次へ →</button>
+  </div>
+  <span class="keyboard-hint">← → ／ Space　ページ移動　　Home ／ End　先頭・最後</span>
+  <div class="toolbar-group">
+    <button type="button" id="toggle-notes" aria-controls="notes" aria-expanded="false">発表者ノート</button>
+    <button type="button" id="fullscreen" aria-pressed="false">全画面</button>
+  </div>
+</nav>
+<p class="visually-hidden" id="status" role="status"></p>
+<!-- 発表者ノートの原文はテンプレート内に保持し、開いているページだけを操作欄に表示します。 -->
+<template id="note-slide-1">
+  <p>漁協・行政・市場の責任を先に決めつけず、現場で感じられている困りごとを紹介する。加入審査、組織運営、取引、漁獲枠、管理効果という異なる領域から例を選んだ。</p>
+</template>
+<template id="note-slide-2">
+  <p>ここで22のタイトルを全部読み上げない。次のページでは、同じ問題区分を繰り返さず、「何を変えたいか」という改善案の整理へ移る。</p>
+</template>
+<template id="note-slide-3">
+  <p>Aは28項目、Bは14項目、Cは9項目、Dは14項目。ここで個別策を読み上げず、続く4ページに代表例を置く。</p>
+</template>
+<template id="note-slide-4">
+  <p>加入審査の理由説明はP02-02（水協法の組合員資格・審査制度等）、市場の買参条件はP13-02（卸売市場法・当該市場の業務規程）、新規枠の配分検討はP18-01（漁業法・管理区分別の配分方針）。法的義務と任意の改善案は区別する。漁獲枠の配分には資源管理上の制約と許可・承認手続がある。</p>
+</template>
+<template id="note-slide-5">
+  <p>P09-01の研修、P10-02の会計情報、P11-02の手数料・サービス点検、P12-02の共同化比較。既存の法定開示と任意の支所別情報提供を区別する。手数料・賦課金・行使料は異なる。組織の一律縮小を提案するものではない。</p>
+</template>
+<template id="note-slide-6">
+  <p>G08は市場取引、G09は価格・販路・加工、G10はIUU水産物。P13-03、P15-01、P15-02、P15-03、P16-02が代表例。流通事業者が担う選別・輸送・保管等の機能を無視して中間流通を非難しない。輸入証明・通関の所管と国内市場規程の所管を混同しない。2026年4月施行の大型太平洋クロマグロの国内流通に関する制度と、輸入確認制度は別の枠組みである。</p>
+</template>
+<template id="note-slide-7">
+  <p>P19-01は資源管理と配分の議論の分離、P20-03・P21-01は意見提出と委員公募、P22-01・P22-03は管理協定や藻場回復事業などの効果検証。国・県・委員会等が所管する手続と、漁業者・漁協系統・研究機関が協力できる観測を区別。CPUEの単純な増減は資源量増減の確証ではなく、漁獲努力・環境・観測方法を考慮する。</p>
+</template>
+<template id="note-slide-8">
+  <p>新しい法令・権限・協議先対応表で65提言の全国共通法令と権限主体を整理した。個別地域・市場の規程や実態の適否は未確認。法律改正は国会、政令改正は内閣、所管法令に基づく認可・配分等は大臣・知事等、内部の事業判断は法人の機関が担う。P02-03とP02-04等は、新しい法定義務・権限を創る場合に法律改正の検討を要する。個別市場の開設と運営の分担、漁港施設の所有・管理は案件ごとに異なる。</p>
+</template>
+<template id="note-slide-9">
+  <p>国・全漁連の双方に同じ資料を提示し、相手に応じた協議事項の優先度は口頭で調整する。特定組織に対する一方的な要求書として扱わない。提言案の妥当性、現行制度での取組、関係者間の役割を議論したい。</p>
+</template>
+<script>
+  "use strict";
+
+  const stage = document.getElementById("stage");
+  const deck = document.getElementById("deck");
+  const slides = [...deck.querySelectorAll(".slide")];
+  const notes = document.getElementById("notes");
+  const notesTitle = document.getElementById("notes-title");
+  const notesBody = document.getElementById("notes-body");
+  const previous = document.getElementById("previous");
+  const next = document.getElementById("next");
+  const counter = document.getElementById("counter");
+  const toggleNotes = document.getElementById("toggle-notes");
+  const fullscreen = document.getElementById("fullscreen");
+  const status = document.getElementById("status");
+  let current = 0;
+
+  function fitDeck() {
+    const inset = stage.clientWidth < 600 ? 8 : 28;
+    const scale = Math.max(0, Math.min(
+      (stage.clientWidth - inset) / deck.offsetWidth,
+      (stage.clientHeight - inset) / deck.offsetHeight
+    ));
+    deck.style.setProperty("--scale", scale);
+  }
+
+  function updateNotes() {
+    const slide = slides[current];
+    const template = document.getElementById("note-" + slide.id);
+    notesTitle.textContent = slide.querySelector(".title").textContent.trim();
+    notesBody.replaceChildren(template.content.cloneNode(true));
+    notesBody.scrollTop = 0;
+  }
+
+  function showSlide(index) {
+    slides[current].hidden = true;
+    current = Math.max(0, Math.min(index, slides.length - 1));
+    slides[current].hidden = false;
+    counter.value = (current + 1) + " / " + slides.length;
+    previous.disabled = current === 0;
+    next.disabled = current === slides.length - 1;
+    if (!notes.hidden) updateNotes();
+  }
+
+  function setNotes(open) {
+    notes.hidden = !open;
+    toggleNotes.setAttribute("aria-expanded", String(open));
+    if (open) {
+      updateNotes();
+      notesBody.focus();
+    } else {
+      toggleNotes.focus();
+    }
+    fitDeck();
+  }
+
+  function syncFullscreen() {
+    const active = Boolean(document.fullscreenElement);
+    fullscreen.textContent = active ? "全画面を終了" : "全画面";
+    fullscreen.setAttribute("aria-pressed", String(active));
+    fitDeck();
+  }
+
+  previous.addEventListener("click", (event) => {
+    showSlide(current - 1);
+    if (event.detail > 0 || previous.disabled) stage.focus();
+  });
+  next.addEventListener("click", (event) => {
+    showSlide(current + 1);
+    if (event.detail > 0 || next.disabled) stage.focus();
+  });
+  toggleNotes.addEventListener("click", () => setNotes(notes.hidden));
+  document.getElementById("close-notes").addEventListener("click", () => setNotes(false));
+  fullscreen.disabled = !document.fullscreenEnabled;
+  fullscreen.addEventListener("click", async (event) => {
+    status.textContent = "";
+    if (event.detail > 0) stage.focus();
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await document.documentElement.requestFullscreen();
+      }
+    } catch {
+      status.textContent = "全画面表示に切り替えられませんでした。";
+    }
+  });
+  document.addEventListener("fullscreenchange", syncFullscreen);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === "Escape" && !notes.hidden && !document.fullscreenElement) {
+      setNotes(false);
+      return;
+    }
+    if (event.target instanceof Element && notesBody.contains(event.target) &&
+        [" ", "Home", "End"].includes(event.key)) return;
+    if (event.key === " " && event.target instanceof Element &&
+        event.target.closest("button:enabled, a[href]")) return;
+
+    const destination = {
+      ArrowLeft: current - 1,
+      ArrowRight: current + 1,
+      " ": current + 1,
+      Home: 0,
+      End: slides.length - 1
+    }[event.key];
+    if (typeof destination !== "number") return;
+    event.preventDefault();
+    showSlide(destination);
+  });
+
+  new ResizeObserver(fitDeck).observe(stage);
+  showSlide(0);
+  fitDeck();
+</script>
+</body>
+</html>

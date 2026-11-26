@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>国声PJ 政策提言案の全体像</title>
+<style>
+:root {
+  color-scheme: light;
+  font-family: "Yu Gothic UI", "Hiragino Sans", Meiryo, sans-serif;
+  --ink: #172c37;
+  --muted: #546873;
+  --paper: #fbfbf8;
+  --line: #ccd8d9;
+  --accent: #206876;
+  --dark: #102f3e;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: #e2e9e9; }
+header, h1, h2, h3, p, ul, dl, dd { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: var(--accent); text-underline-offset: .19em; }
+button { font: inherit; cursor: pointer; }
+button:disabled { cursor: default; opacity: .43; }
+:focus-visible { outline: 3px solid #ac5a21; outline-offset: 3px; }
+main { padding: 18px; }
+.deck { width: max-content; max-width: 100%; margin: 0 auto; }
+.slide {
+  width: 1280px; max-width: 100%; min-height: 720px;
+  background: var(--paper); border-top: 8px solid var(--accent);
+  padding: 42px 72px 47px;
+  display: flex; flex-direction: column;
+  color: var(--ink); line-height: 1.48; line-break: strict;
+}
+.js body { display: grid; grid-template-rows: minmax(0, 1fr) auto; height: 100vh; height: 100dvh; }
+.js main { position: relative; padding: 0; overflow: auto; }
+.js .deck {
+  position: absolute; left: 50%; top: 50%;
+  width: 1280px; max-width: none; height: 720px;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  box-shadow: 0 14px 45px #102f3e24;
+}
+.js .slide { height: 720px; }
+[hidden] { display: none !important; }
+.tone-A { --accent: #206876; }
+.tone-B { --accent: #3c537d; }
+.tone-C { --accent: #8d5126; }
+.tone-D { --accent: #47664c; }
+.slide-head {
+  display: flex; justify-content: space-between; gap: 1em;
+  border-bottom: 1px solid var(--line); padding-bottom: 13px;
+  font-size: 19px; font-weight: 700; color: var(--accent);
+}
+.slide h2 { font-size: 46px; line-height: 1.24; letter-spacing: .015em; margin: 25px 0 0; }
+.slide h2:focus, .slide h1:focus { outline: none; }
+.cover {
+  justify-content: space-between;
+  padding: 53px 72px 48px;
+  background: var(--dark); border-top-color: #5ca9a7; color: #f3fcfc;
+}
+.cover-top { font-size: 25px; font-weight: 700; }
+.cover-date { font-size: 20px; margin-bottom: 14px; color: #b6dcdb; }
+.cover h1 { font-size: 72px; line-height: 1.19; font-weight: 750; letter-spacing: .025em; }
+.cover-lead { margin-top: 18px; font-size: 27px; color: #dceced; }
+.cover-bottom { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; border-top: 1px solid #66818c; }
+.cover-bottom p { font-size: 20px; color: #dceced; }
+.figures { display: flex; gap: 33px; font-size: 23px; }
+.figures b { color: #a4e0d7; font-size: 62px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.index-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 44px; margin-top: 23px; }
+.index-section h3 {
+  display: flex; align-items: baseline; gap: 10px;
+  border-bottom: 2px solid var(--accent); padding-bottom: 4px;
+  font-size: 23px; color: var(--accent);
+}
+.index-section h3 small { margin-left: auto; font-size: 17px; white-space: nowrap; }
+.index-section li { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 4px 2px; border-bottom: 1px solid var(--line); font-size: 19px; }
+.index-section li a { color: var(--ink); }
+.index-section li span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.footnote { margin-top: auto; padding-top: 19px; font-size: 17px; color: var(--muted); }
+.gid { display: inline-block; vertical-align: .15em; margin-right: 17px; font-size: .52em; color: var(--accent); }
+.direction { margin: 24px 0 19px; padding: 0 0 0 19px; border-left: 4px solid var(--accent); color: var(--ink); font-size: 27px; font-weight: 650; }
+.proposal-list { margin-top: 18px; }
+.proposal-list li {
+  display: grid; grid-template-columns: 94px 1fr; align-items: baseline;
+  gap: 12px; padding: 22px 0; border-top: 1px solid var(--line); font-size: 25px;
+  overflow-wrap: anywhere;
+}
+.proposal-list .pid, .detail-list .pid { color: var(--accent); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.proposal-list.dense { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 35px; margin-top: 10px; }
+.proposal-list.dense li { grid-template-columns: 76px 1fr; gap: 8px; padding: 12px 0; font-size: 23px; }
+.cross-list { margin-top: 8px; }
+.cross-list > div { display: grid; grid-template-columns: 235px 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); font-size: 24px; }
+.cross-list dt { font-weight: 750; color: var(--dark); }
+.cross-list a { font-size: .75em; white-space: nowrap; }
+.control-bar {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 5px 8px;
+  padding: 8px 14px; background: var(--dark); color: white;
+}
+.control-bar button, .dialog-bar button {
+  padding: 6px 11px; border: 1px solid #91adb5; border-radius: 3px;
+  background: transparent; color: inherit; font-size: 15px;
+}
+.control-bar button:hover:not(:disabled), .dialog-bar button:hover { background: #ffffff20; }
+.counter { min-width: 68px; text-align: center; font-variant-numeric: tabular-nums; font-size: 15px; }
+dialog {
+  width: min(1040px, calc(100vw - 24px)); max-height: 87vh; max-height: 87dvh;
+  padding: 0; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+}
+dialog::backdrop { background: #102530c9; }
+.dialog-bar { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 9px 23px; color: white; background: var(--dark); }
+.dialog-body { padding: 20px clamp(15px, 4vw, 40px) 28px; }
+.dialog-body h2 { font-size: clamp(22px, 3.2vw, 31px); }
+.dialog-direction { margin: 12px 0 20px; line-height: 1.7; }
+.detail-list li { padding: 13px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.detail-list li.is-target { background: #e2f2ef; }
+.detail-list h3 { font-size: 19px; }
+.detail-list p { line-height: 1.7; margin-top: 5px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; min-width: 510px; border-collapse: collapse; text-align: left; }
+td, th { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead { background: #e5efef; }
+td a { display: inline-block; margin-right: .45em; }
+@media screen and (max-width: 720px) {
+  .js .deck { position: static; width: auto; height: auto; transform: none; box-shadow: none; }
+  .slide, .js .slide { width: 100%; height: auto; min-height: 100%; padding: 22px 18px 30px; }
+  .js .deck { min-height: 100%; display: grid; }
+  .slide h2 { font-size: 31px; margin-top: 17px; }
+  .slide-head, .index-section li { font-size: 16px; }
+  .cover { min-height: 100%; gap: 36px; }
+  .cover h1 { font-size: clamp(38px, 9vw, 60px); }
+  .cover-top, .cover-lead { font-size: 19px; }
+  .cover-bottom { flex-direction: column; gap: 4px; }
+  .cover-bottom p, .cover-date { font-size: 16px; }
+  .figures b { font-size: 45px; }
+  .index-grid, .proposal-list.dense, .cross-list > div { grid-template-columns: 1fr; }
+  .index-section h3 { font-size: 19px; }
+  .direction { font-size: 20px; }
+  .proposal-list li, .proposal-list.dense li { grid-template-columns: 66px 1fr; font-size: 17px; padding: 10px 0; }
+  .proposal-list .pid { font-size: 14px; }
+  .cross-list > div { font-size: 18px; gap: 4px; }
+  .footnote { font-size: 14px; overflow-wrap: anywhere; }
+}
+@page { size: 13.333333in 7.5in; margin: 0; }
+@media print {
+  :root { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .js body { display: block; height: auto; }
+  .js main, main { position: static; display: block; overflow: visible; padding: 0; }
+  .js .deck, .deck { position: static; transform: none; width: 1280px; height: auto; max-width: none; box-shadow: none; }
+  .slide, .js .slide, .slide[hidden] { display: flex !important; width: 1280px; height: 720px; break-after: page; break-inside: avoid; }
+  .slide:last-child { break-after: auto; }
+  .control-bar, dialog { display: none !important; }
+}
+</style>
+</head>
+<body>
+<main id="stage" aria-label="発表スライド"><div class="deck" id="deck">
+<section class="slide cover" id="cover" aria-labelledby="cover-title">
+  <div class="cover-top">水産未来サミット　国声PJ</div>
+  <div><p class="cover-date">2026年11月24日　整理資料</p><h1 id="cover-title" tabindex="-1">政策提言案の全体像</h1>
+  <p class="cover-lead">元の22論点をまたいで、共通する改善の方向性を比較する。</p></div>
+  <div class="cover-bottom"><div class="figures"><div><b>14</b> グループ</div><div><b>65</b> 項目</div></div>
+  <p>国声PJとして決定する前の検討案</p></div>
+</section>
+<section class="slide overview" id="overview" aria-labelledby="overview-title">
+    <header class="slide-head"><span>国声PJ　政策提言案</span><span>65項目</span></header>
+    <h2 id="overview-title" tabindex="-1">14グループの一覧</h2>
+    <div class="index-grid"><div class="index-section tone-A"><h3><span>A</span> ルール・参入・是正 <small>28項目</small></h3>
+    <ul><li><a href="#g01" data-slide-link>G01　ルール・判断基準の明確化</a><span>8</span></li><li><a href="#g02" data-slide-link>G02　個別判断の公平性・理由説明</a><span>7</span></li><li><a href="#g03" data-slide-link>G03　新たな参加・利用機会の確保</a><span>7</span></li><li><a href="#g04" data-slide-link>G04　相談・監督・是正</a><span>6</span></li></ul></div><div class="index-section tone-B"><h3><span>B</span> 漁協の組織・経営 <small>14項目</small></h3>
+    <ul><li><a href="#g05" data-slide-link>G05　役員の選任・教育・職務責任</a><span>6</span></li><li><a href="#g06" data-slide-link>G06　独立した監査・経営監督</a><span>4</span></li><li><a href="#g07" data-slide-link>G07　漁協事業・組織体制の見直し</a><span>4</span></li></ul></div><div class="index-section tone-C"><h3><span>C</span> 取引・流通 <small>9項目</small></h3>
+    <ul><li><a href="#g08" data-slide-link>G08　公正な市場取引</a><span>3</span></li><li><a href="#g09" data-slide-link>G09　価格形成・販路・加工</a><span>3</span></li><li><a href="#g10" data-slide-link>G10　IUU水産物の流通防止</a><span>3</span></li></ul></div><div class="index-section tone-D"><h3><span>D</span> 資源管理 <small>14項目</small></h3>
+    <ul><li><a href="#g11" data-slide-link>G11　資源管理と漁獲枠配分の議論の整理</a><span>3</span></li><li><a href="#g12" data-slide-link>G12　委員選任・代表性・専門性</a><span>3</span></li><li><a href="#g13" data-slide-link>G13　審議の公開・意見聴取</a><span>4</span></li><li><a href="#g14" data-slide-link>G14　履行確認・効果検証・見直し</a><span>4</span></li></ul></div></div><p class="footnote">各提言は主な内容に基づいて1グループに配置。A〜Dは閲覧用の区分で、最終的な政策の柱は今後検討する。</p>
+    </section>
+<section class="slide group tone-A" id="g01" aria-labelledby="g01-title">
+    <header class="slide-head"><span>A　ルール・参入・是正</span><span>8項目</span></header>
+    <h2 id="g01-title" tabindex="-1"><span class="gid">G01</span>ルール・判断基準の明確化</h2>
+    <p class="direction">地区ルールや漁獲枠などの判断根拠を、関係者が事前に確認できるようにする。</p><ul class="proposal-list dense"><li><span class="pid">P01-01</span><span>地区の行使規則案・認可後の規則を共有し、事前同意の取得記録を点検</span></li><li><span class="pid">P03-01</span><span>行使規則の認可時に、漁法別の制限の目的・程度・影響を確認</span></li><li><span class="pid">P04-02</span><span>住所要件の必要性を点検し、条件に差を設ける理由と期間を明示</span></li><li><span class="pid">P05-01</span><span>合併後の地区運用を既存の判断指針で点検</span></li><li><span class="pid">P06-01</span><span>海域・漁法・魚種別に、操業前に確認できる規制情報を案内</span></li><li><span class="pid">P07-01</span><span>施設ごとに所有・管理主体と適用規程を確認</span></li><li><span class="pid">P11-01</span><span>手数料・行使料・協力金の根拠・算定方法・使途を開示</span></li><li><span class="pid">P17-01</span><span>漁獲枠の配分基準・使用データ・算定方法を公表</span></li></ul>
+    </section>
+<section class="slide group tone-A" id="g02" aria-labelledby="g02-title">
+    <header class="slide-head"><span>A　ルール・参入・是正</span><span>7項目</span></header>
+    <h2 id="g02-title" tabindex="-1"><span class="gid">G02</span>個別判断の公平性・理由説明</h2>
+    <p class="direction">資格や利用の審査手続を明確にし、保留・不承認・不利益措置の理由を本人に伝える。</p><ul class="proposal-list dense"><li><span class="pid">P02-01</span><span>組合員資格の日数要件と確認資料を明示</span></li><li><span class="pid">P02-02</span><span>標準審査期間を定め、保留・不承認の理由を書面で通知</span></li><li><span class="pid">P02-04</span><span>本人への審査要旨の提供を進め、記録の閲覧請求の法制化を検討</span></li><li><span class="pid">P03-02</span><span>個別の操業条件・不利益措置の根拠と手続を事前に通知</span></li><li><span class="pid">P07-02</span><span>係留の割当・料金・利用停止条件の公開と再確認手続を検討</span></li><li><span class="pid">P13-01</span><span>買参資格の申請基準と不承認理由の通知を業務規程等に明記</span></li><li><span class="pid">P17-03</span><span>漁獲枠の申請要件を案内し、不承認理由と照会先を通知</span></li></ul>
+    </section>
+<section class="slide group tone-A" id="g03" aria-labelledby="g03-title">
+    <header class="slide-head"><span>A　ルール・参入・是正</span><span>7項目</span></header>
+    <h2 id="g03-title" tabindex="-1"><span class="gid">G03</span>新たな参加・利用機会の確保</h2>
+    <p class="direction">新規参入者や沿岸・小規模漁業者が、漁場・市場・漁獲枠を利用できる条件を検討する。</p><ul class="proposal-list dense"><li><span class="pid">P04-01</span><span>地区内に住宅を確保できない場合の行使規則の例外を提示</span></li><li><span class="pid">P05-02</span><span>地区間の漁場相互利用を協議し、試行条件と評価方法を設定</span></li><li><span class="pid">P13-02</span><span>新規買参者に、保証金等による信用確認・決済の方法を検討</span></li><li><span class="pid">P14-01</span><span>買参者を募集し、入札者数と落札の偏りを点検</span></li><li><span class="pid">P18-01</span><span>漁獲枠の増加分・未利用分を沿岸・小規模漁業者や新規参入者に配分する方法を検討</span></li><li><span class="pid">P18-02</span><span>廃業等で生じた未利用枠の再配分条件を整理</span></li><li><span class="pid">P18-03</span><span>クロマグロを候補に、沿岸への配分が他漁法や経営に及ぼす影響を試算</span></li></ul>
+    </section>
+<section class="slide group tone-A" id="g04" aria-labelledby="g04-title">
+    <header class="slide-head"><span>A　ルール・参入・是正</span><span>6項目</span></header>
+    <h2 id="g04-title" tabindex="-1"><span class="gid">G04</span>相談・監督・是正</h2>
+    <p class="direction">地区内で解決しにくい問題を、相談から事実確認や規程・運用の見直しにつなげる。</p><ul class="proposal-list dense"><li><span class="pid">P01-02</span><span>報告徴収・検査の要件と相談受付後の監督手順を周知</span></li><li><span class="pid">P01-03</span><span>水産庁・都道府県の既存相談窓口と担当事項を案内</span></li><li><span class="pid">P01-04</span><span>漁協本所・漁連に地区外の相談先を設け、専門家の助言を活用</span></li><li><span class="pid">P02-03</span><span>資格審査委員会の運用を点検し、必要に応じて法定化を検討</span></li><li><span class="pid">P03-03</span><span>認可後の相談を受け、説明や行使規則の見直しにつなげる</span></li><li><span class="pid">P06-02</span><span>慣行による制限の主体・根拠・適用範囲を確認し、必要に応じて調整</span></li></ul>
+    </section>
+<section class="slide group tone-B" id="g05" aria-labelledby="g05-title">
+    <header class="slide-head"><span>B　漁協の組織・経営</span><span>6項目</span></header>
+    <h2 id="g05-title" tabindex="-1"><span class="gid">G05</span>役員の選任・教育・職務責任</h2>
+    <p class="direction">候補者の情報と役職ごとの責任を明確にし、研修・後継者育成・職務点検を進める。</p><ul class="proposal-list dense"><li><span class="pid">P08-01</span><span>役員候補の経験・再任の経緯・兼務や利害関係を組合員に開示</span></li><li><span class="pid">P08-02</span><span>組合長・専務等への委任範囲を定め、重要な判断を記録</span></li><li><span class="pid">P08-03</span><span>後継者の確保とあわせ、再任回数の上限や定年制を検討</span></li><li><span class="pid">P09-01</span><span>法令・会計・利益相反・役員責任を扱う就任時の標準研修を整備</span></li><li><span class="pid">P09-02</span><span>組合長・理事・参事の能力要件と責任、参事の権限を明文化</span></li><li><span class="pid">P09-03</span><span>理事会で職務遂行を点検し、不備への対応と再発防止を追跡</span></li></ul>
+    </section>
+<section class="slide group tone-B" id="g06" aria-labelledby="g06-title">
+    <header class="slide-head"><span>B　漁協の組織・経営</span><span>4項目</span></header>
+    <h2 id="g06-title" tabindex="-1"><span class="gid">G06</span>独立した監査・経営監督</h2>
+    <p class="direction">組合員が財務情報を確認でき、経営判断を独立した視点から検証できる体制を整える。</p><ul class="proposal-list "><li><span class="pid">P10-01</span><span>員外監事の独立性を確保し、事業規模とリスクに応じて対象拡大を検討</span></li><li><span class="pid">P10-02</span><span>支所別収支や手数料の使途を組合員に示す報告例を整備</span></li><li><span class="pid">P10-03</span><span>小規模漁協の監事候補の紹介・研修を支援し、資料へのアクセスを確保</span></li><li><span class="pid">P11-03</span><span>独立性のある外部理事等の自主導入を漁協の規模に応じて促進</span></li></ul>
+    </section>
+<section class="slide group tone-B" id="g07" aria-labelledby="g07-title">
+    <header class="slide-head"><span>B　漁協の組織・経営</span><span>4項目</span></header>
+    <h2 id="g07-title" tabindex="-1"><span class="gid">G07</span>漁協事業・組織体制の見直し</h2>
+    <p class="direction">組合員の負担とサービスを照らし合わせ、地域に必要な機能を維持できる運営方法を比較する。</p><ul class="proposal-list "><li><span class="pid">P11-02</span><span>料金とサービスを組合員が検証し、見直しの理由を総会等で説明</span></li><li><span class="pid">P12-01</span><span>事業別の利用実績・収支・組合員負担から必要性と採算性を評価</span></li><li><span class="pid">P12-02</span><span>支所間の集約・漁協間の共同化による費用と利用への影響を比較</span></li><li><span class="pid">P12-03</span><span>民間委託と事業移管の責任分担、漁業権や施設利用への影響を確認</span></li></ul>
+    </section>
+<section class="slide group tone-C" id="g08" aria-labelledby="g08-title">
+    <header class="slide-head"><span>C　取引・流通</span><span>3項目</span></header>
+    <h2 id="g08-title" tabindex="-1"><span class="gid">G08</span>公正な市場取引</h2>
+    <p class="direction">競りと相対取引の運用条件を明確にし、競争上の懸念や利益相反に対応する。</p><ul class="proposal-list "><li><span class="pid">P13-03</span><span>競りと相対取引の適用条件を示し、取引記録を残す</span></li><li><span class="pid">P14-02</span><span>入札・落札記録を保存し、競争上の疑義を相談できる手順を整備</span></li><li><span class="pid">P14-03</span><span>漁協が市場運営と買付けを担う場合の担当・情報アクセスを分離</span></li></ul>
+    </section>
+<section class="slide group tone-C" id="g09" aria-labelledby="g09-title">
+    <header class="slide-head"><span>C　取引・流通</span><span>3項目</span></header>
+    <h2 id="g09-title" tabindex="-1"><span class="gid">G09</span>価格形成・販路・加工</h2>
+    <p class="direction">流通段階ごとの価格と費用を把握し、販路や加工・冷凍が手取りと採算に与える影響を確かめる。</p><ul class="proposal-list "><li><span class="pid">P15-01</span><span>魚種・流通経路ごとに価格・手数料・輸送等の費用を把握</span></li><li><span class="pid">P15-02</span><span>新規買参者への販売・相対取引・共同出荷の経路を整備</span></li><li><span class="pid">P15-03</span><span>鮮魚価格が下がる時期に加工・冷凍を試し、手取りと採算を検証</span></li></ul>
+    </section>
+<section class="slide group tone-C" id="g10" aria-labelledby="g10-title">
+    <header class="slide-head"><span>C　取引・流通</span><span>3項目</span></header>
+    <h2 id="g10-title" tabindex="-1"><span class="gid">G10</span>IUU水産物の流通防止</h2>
+    <p class="direction">違法・無報告・無規制（IUU）漁業に由来する水産物の流通を防ぐため、取引の追跡と確認を強化する。</p><ul class="proposal-list "><li><span class="pid">P16-01</span><span>国内流通と輸入時の記録を比較し、現行制度で追跡できない段階を特定</span></li><li><span class="pid">P16-02</span><span>輸入証明書を漁船・取引情報と照合し、不一致を確認</span></li><li><span class="pid">P16-03</span><span>魚種・取引経路などから重点確認の対象を定め、疑義への対応手順を整理</span></li></ul>
+    </section>
+<section class="slide group tone-D" id="g11" aria-labelledby="g11-title">
+    <header class="slide-head"><span>D　資源管理</span><span>3項目</span></header>
+    <h2 id="g11-title" tabindex="-1"><span class="gid">G11</span>資源管理と漁獲枠配分の議論の整理</h2>
+    <p class="direction">資源管理の判断と漁獲枠の配分を別の議題などで扱い、配分案の影響と判断理由を説明できるようにする。</p><ul class="proposal-list "><li><span class="pid">P17-02</span><span>漁法・地域ごとの配分案を公開の場で比較し、意見と判断理由を記録</span></li><li><span class="pid">P19-01</span><span>資源評価・管理目標と漁獲枠配分を別の議題・会合で扱う</span></li><li><span class="pid">P19-02</span><span>配分案ごとに水揚げの価値・雇用・経営継続性を比較</span></li></ul>
+    </section>
+<section class="slide group tone-D" id="g12" aria-labelledby="g12-title">
+    <header class="slide-head"><span>D　資源管理</span><span>3項目</span></header>
+    <h2 id="g12-title" tabindex="-1"><span class="gid">G12</span>委員選任・代表性・専門性</h2>
+    <p class="direction">多様な漁業者が委員候補になれる経路を設け、選考の透明性・専門性・中立性を高める。</p><ul class="proposal-list "><li><span class="pid">P20-01</span><span>公募・推薦を案内し、委員候補の地域・漁法・経営規模の偏りを点検</span></li><li><span class="pid">P21-01</span><span>漁協経由以外でも公募を周知し、委員区分・選考基準・評点の考え方を提示</span></li><li><span class="pid">P21-02</span><span>研究・実務経験を評価し、中立委員の利害関係を確認</span></li></ul>
+    </section>
+<section class="slide group tone-D" id="g13" aria-labelledby="g13-title">
+    <header class="slide-head"><span>D　資源管理</span><span>4項目</span></header>
+    <h2 id="g13-title" tabindex="-1"><span class="gid">G13</span>審議の公開・意見聴取</h2>
+    <p class="direction">委員以外の漁業者にも、審議の経過を確認し、会議外から意見を届ける機会を確保する。</p><ul class="proposal-list "><li><span class="pid">P20-02</span><span>日程・議題を早めに知らせ、傍聴や資料へのアクセス方法を案内</span></li><li><span class="pid">P20-03</span><span>書面・オンラインで意見を受け付け、審議での扱いを明示</span></li><li><span class="pid">P21-03</span><span>議事録と判断に用いた審議資料を対応させて公開</span></li><li><span class="pid">P21-04</span><span>公開できる審議のオンライン配信と録画の保存・公開を推進</span></li></ul>
+    </section>
+<section class="slide group tone-D" id="g14" aria-labelledby="g14-title">
+    <header class="slide-head"><span>D　資源管理</span><span>4項目</span></header>
+    <h2 id="g14-title" tabindex="-1"><span class="gid">G14</span>履行確認・効果検証・見直し</h2>
+    <p class="direction">対策の実施状況と資源・環境の変化をそれぞれ記録し、効果の検証を計画の見直しにつなげる。</p><ul class="proposal-list "><li><span class="pid">P22-01</span><span>資源管理協定の評価指標を例示し、単位努力量当たりの漁獲量（CPUE）を調査データ等とあわせて解釈</span></li><li><span class="pid">P22-02</span><span>漁場改善計画の対策実施記録と水質・底生生物などの測定結果を分けて報告</span></li><li><span class="pid">P22-03</span><span>計画の目標・対策・測定結果を継続して公開し、藻場回復事業の終了後も観測</span></li><li><span class="pid">P22-04</span><span>行政・漁協系統・研究機関で観測方法を共有し、対策の効果を検証できるデータを蓄積</span></li></ul>
+    </section>
+<section class="slide cross" id="cross" aria-labelledby="cross-title">
+    <header class="slide-head"><span>国声PJ　政策提言案</span><span></span></header>
+    <h2 id="cross-title" tabindex="-1">グループをまたぐ提言の例</h2>
+    <p class="direction">一つの論点でも、判断基準・手続・参加機会など、改善したい点に応じて提言の配置先が分かれる。</p>
+<dl class="cross-list">
+  <div><dt>漁獲枠の配分</dt><dd>基準の公表 <a href="#g01" data-slide-link>G01</a>、不承認理由の通知 <a href="#g02" data-slide-link>G02</a>、沿岸・小規模漁業者等の配分機会 <a href="#g03" data-slide-link>G03</a>、公開協議と影響比較 <a href="#g11" data-slide-link>G11</a></dd></div>
+  <div><dt>産地市場への参加</dt><dd>買参資格の審査 <a href="#g02" data-slide-link>G02</a>、新規買参者の信用確認 <a href="#g03" data-slide-link>G03</a>、取引条件と利益相反 <a href="#g08" data-slide-link>G08</a>、販路の選択肢 <a href="#g09" data-slide-link>G09</a></dd></div>
+  <div><dt>漁協の手数料</dt><dd>徴収・算定根拠の開示 <a href="#g01" data-slide-link>G01</a>、独立した視点からの経営監督 <a href="#g06" data-slide-link>G06</a>、料金とサービスの検証 <a href="#g07" data-slide-link>G07</a></dd></div>
+</dl>
+<p class="footnote">資料　国声PJ_政策提言一覧_14グループ整理_20261124.md</p>
+    </section>
+</div></main>
+<nav class="control-bar" id="controls" aria-label="スライド操作" hidden>
+  <button type="button" id="prev" aria-keyshortcuts="ArrowLeft">‹ 前へ</button>
+  <output class="counter" id="counter" aria-live="polite"></output>
+  <button type="button" id="next" aria-keyshortcuts="ArrowRight">次へ ›</button>
+  <button type="button" id="contents">一覧</button>
+  <button type="button" id="details" disabled>提言原文</button>
+  <button type="button" id="appendix">旧22論点との対応</button>
+  <button type="button" id="fullscreen" aria-pressed="false">全画面</button>
+</nav>
+<dialog id="dialog" aria-label="政策提言の参照資料">
+  <form method="dialog" class="dialog-bar"><span>国声PJ　参照資料</span><button autofocus>閉じる</button></form>
+  <div class="dialog-body" id="dialog-body"></div>
+</dialog>
+<template id="detail-g01"><h2>G01　ルール・判断基準の明確化</h2><p class="dialog-direction">地区ルール、行使規則、施設利用、手数料、漁獲枠配分などについて、適用される規程や制限の目的、判断基準、算定根拠を関係者が確認できるようにする。</p><ul class="detail-list"><li id="P01-01"><h3><span class="pid">P01-01</span> 地区で適用されるルールを確認できるようにする。</h3><p>都道府県は行使規則の認可時に、漁業法第106条に基づく事前同意が必要な場合の対象と取得記録を点検し、漁協は規則案と認可後の規則を関係組合員が確認できるようにする。規則の内容の審査は論点3で扱う。 <a href="https://laws.e-gov.go.jp/law/324AC0000000267" target="_blank" rel="noopener">漁業法第106条</a></p></li><li id="P03-01"><h3><span class="pid">P03-01</span> 認可時に制限の理由と影響を確認する。</h3><p>水産庁は法定の認可基準の運用例を示し、都道府県は漁法別の制限の目的、程度、影響を受ける漁業者の意見を確認する。</p></li><li id="P04-02"><h3><span class="pid">P04-02</span> 住所要件の必要性を点検する。</h3><p>漁協は居住・操業の実態を定期的に確認し、新旧の漁業者に異なる条件を設ける場合は理由と適用期間を示す。知事は認可時に法定の基準に沿って確認する。</p></li><li id="P05-01"><h3><span class="pid">P05-01</span> 既存の判断指針を合併後の地区運用の点検に使う。</h3><p>都道府県は、漁協や関係地区から操業実態、資源状態、管理上の制限、休止の理由を確認し、維持・見直しの理由を整理する。水産庁は適用事例を共有する。</p></li><li id="P06-01"><h3><span class="pid">P06-01</span> 適用される制限の根拠を調べやすくする。</h3><p>都道府県は、海域・漁法・魚種別に規制、委員会指示、漁業権情報への参照先を案内し、漁業者が操業前に確認できるようにする。</p></li><li id="P07-01"><h3><span class="pid">P07-01</span> 施設ごとの管理主体と適用規程を確認する。</h3><p>自治体・漁港管理者は漁協と施設の所有・管理関係、管理委託の範囲、適用される条例・規程・契約を確認する。水産庁は専門家と連携して確認に必要な資料を整理する。</p></li><li id="P11-01"><h3><span class="pid">P11-01</span> 徴収の根拠・算定方法・使途を明示する。</h3><p>漁協は、手数料、行使料、協力金ごとに根拠規程、対象取引、金額、支払義務の有無を組合員に示す。水産庁は開示例を示す。</p></li><li id="P17-01"><h3><span class="pid">P17-01</span> 配分基準と算定根拠を公表する。</h3><p>水産庁と都道府県は、所管する配分について実績の対象期間、使用データ、算定方法、各基準を用いる理由を示し、あとから検証できるよう記録を保存する。</p></li></ul></template>
+<template id="detail-g02"><h2>G02　個別判断の公平性・理由説明</h2><p class="dialog-direction">組合員資格、操業条件、係留施設、買参資格、漁獲枠の申請などについて、個別の審査・判断手続を明確にし、不承認や不利益措置の理由を本人が確認できるようにする。</p><ul class="detail-list"><li id="P02-01"><h3><span class="pid">P02-01</span> 日数の審査基準と確認資料を明確にする。</h3><p>水産庁は既存の規程例・通知の周知を進め、漁協は仕切り伝票や作業日誌などの確認方法を明示する。都道府県は審査への疑義がある場合に監督権限の範囲で確認する。</p></li><li id="P02-02"><h3><span class="pid">P02-02</span> 長期保留を防ぎ、判断理由を知らせる。</h3><p>漁協は内部規程で標準的な審査期間を定め、追加資料の要否、保留や不承認の理由を本人に書面で伝える。</p></li><li id="P02-04"><h3><span class="pid">P02-04</span> 本人が審査記録を確認できるようにする。</h3><p>漁協は本人への理由・審査要旨の提供を進め、農林水産省は第三者情報を保護しながら該当部分の閲覧・写しの交付を請求できる仕組みの法制化を検討する。</p></li><li id="P03-02"><h3><span class="pid">P03-02</span> 個別の不利益措置の根拠と手続を示す。</h3><p>漁協は操業条件や違反時の措置を適用する前に、根拠となる規程、判断主体、手続を明確にし、対象者に通知する。</p></li><li id="P07-02"><h3><span class="pid">P07-02</span> 確認結果を踏まえて利用ルールを見直す。</h3><p>各管理主体は、係留の割当基準・料金・利用停止の条件の公開と、不利益な取扱いの理由を伝え、再確認を申し出られる手続を検討する。</p></li><li id="P13-01"><h3><span class="pid">P13-01</span> 買参資格の審査を透明にする。</h3><p>農林水産省は産地市場向けの指針を示し、市場開設者は申請基準や不承認理由の通知を業務規程等に定める。運営者はその基準に沿って審査・受付を行い、新規の買参希望者にも手続を案内する。</p></li><li id="P17-03"><h3><span class="pid">P17-03</span> 申請や相談に対し判断理由を知らせる。</h3><p>所管行政庁は、配分の単位や制度に応じて申請資格・窓口・資料を案内し、申請を認めない場合には理由と問い合わせ先を伝える。</p></li></ul></template>
+<template id="detail-g03"><h2>G03　新たな参加・利用機会の確保</h2><p class="dialog-direction">居住条件、地区間の漁場利用、市場への参入、漁獲枠の配分などについて、既存の利用者だけでなく、新規参入者や沿岸・小規模漁業者にも参加機会を確保するための条件や方法を検討する。</p><ul class="detail-list"><li id="P04-01"><h3><span class="pid">P04-01</span> 住宅確保が困難な場合の例外条項の例を示す。</h3><p>水産庁は、災害危険区域の指定などで地区内に居住できない場合に、近隣居住や就業実績を行使規則上考慮する規定例を示す。組合員資格や免許の適格性は別に確認する。</p></li><li id="P05-02"><h3><span class="pid">P05-02</span> 見直しが必要な場合に地区間の利用を協議する。</h3><p>漁協は関係地区と、相互利用による資源・既存操業への影響を検討する。都道府県は必要に応じて調整し、試行する場合は免許・行使規則等との整合を確認して、区域・期間・評価方法を定める。</p></li><li id="P13-02"><h3><span class="pid">P13-02</span> 新規買参者にも使える信用確認・決済の方法を示す。</h3><p>開設者と運営者は、取引実績に代えて保証金等で信用を確認する方法を検討する。買参者には代金の精算と取引記録のルールを周知する。</p></li><li id="P14-01"><h3><span class="pid">P14-01</span> 競りに参加する買い手を増やす。</h3><p>市場開設者と運営者は、論点13の資格見直しとあわせて買参者を募集し、入札者数や落札の偏りを点検する。</p></li><li id="P18-01"><h3><span class="pid">P18-01</span> 増加分・未利用枠からの配分を検討する。</h3><p>水産庁・都道府県は沿岸・小規模漁業者や新規参入者への配分方法を比較する。操業承認・許可が必要な場合は、それぞれの所管機関と手続の整合を確認する。</p></li><li id="P18-02"><h3><span class="pid">P18-02</span> 廃業等で利用されなくなった枠の取扱いを明確にする。</h3><p>水産庁・都道府県は、未利用分を再配分できる条件、異なる漁法への配分の可否、漁獲量の管理方法を整理する。</p></li><li id="P18-03"><h3><span class="pid">P18-03</span> 配分案ごとの影響を試算する。</h3><p>水産庁・都道府県は、クロマグロを候補事例として、沿岸漁業者に一定量を配分する場合の定置網・巻き網等の残枠と経営への影響を比較する。資源管理上の制約も確認して試行の可否を判断する。</p></li></ul></template>
+<template id="detail-g04"><h2>G04　相談・監督・是正</h2><p class="dialog-direction">漁協や地域の内部だけでは解決が難しい問題について、相談先、監督上の判断、審査の確認体制、規程や運用の見直し手続を明確にし、疑義を確認・是正できる環境を整える。</p><ul class="detail-list"><li id="P01-02"><h3><span class="pid">P01-02</span> 漁協に対する監督の判断を明確にする。</h3><p>所管行政庁は、報告徴収や検査を行う要件と相談受付後の手順を周知する。都道府県では、振興事業の担当とは別に監督上の判断を確認できる手続を設ける。</p></li><li id="P01-03"><h3><span class="pid">P01-03</span> 既存の相談窓口を使いやすくする。</h3><p>水産庁と都道府県は、漁業権の相談窓口、漁協監督の担当、各窓口で扱える事項を案内する。水産庁は、県で対応が進まない相談について、所管や適用制度を整理し、必要に応じて技術的助言につなぐ。</p></li><li id="P01-04"><h3><span class="pid">P01-04</span> 地区の外にも内部相談先を設ける。</h3><p>漁協本所と漁連は、地区だけでは扱いにくい相談を受け付け、利害関係に応じて外部専門家の助言を受けられるようにする。</p></li><li id="P02-03"><h3><span class="pid">P02-03</span> 資格審査委員会の法定化を検討する。</h3><p>農林水産省は、規程例に沿った委員会運用を点検し、改善が難しい場合には水協法上の設置義務を検討する。県が加入審査を代行する案は、責任の分担も含めて法的根拠を新設する制度案として扱う。</p></li><li id="P03-03"><h3><span class="pid">P03-03</span> 認可後の相談を、確認や見直しにつなげる。</h3><p>都道府県は、規則の内容への異議と、個別措置の根拠への疑義を区別して受け付け、必要に応じて漁協に説明や規則の見直しを求める。相談先の案内は論点1と連動させる。</p></li><li id="P06-02"><h3><span class="pid">P06-02</span> 慣行を理由とする制限の相談手順を示す。</h3><p>都道府県は、制限を求めた主体、根拠文書、適用範囲を確認し、必要に応じて事実確認や調整を行う。県で対応が進まない場合は論点1の相談経路を案内する。</p></li></ul></template>
+<template id="detail-g05"><h2>G05　役員の選任・教育・職務責任</h2><p class="dialog-direction">漁協役員の選任・再任の透明性を高め、役職ごとの能力と責任を明確にするとともに、研修、後継者育成、職務遂行状況の点検を通じて組織運営能力を向上させる。</p><ul class="detail-list"><li id="P08-01"><h3><span class="pid">P08-01</span> 選任・再任の判断材料を組合員に示す。</h3><p>漁協は候補者の経験、再任の経緯、兼務や利害関係を説明する。水産庁は模範定款例の利用にあわせて開示例を示す。</p></li><li id="P08-02"><h3><span class="pid">P08-02</span> 組合長と専務等の職務分担を明確にする。</h3><p>理事会は委任範囲と理事会に留保する事項を規程に定め、重要な判断を記録する。</p></li><li id="P08-03"><h3><span class="pid">P08-03</span> 後継者育成とあわせて再任のルールを点検する。</h3><p>漁協は候補者の確保と業務継続への影響を考慮し、組合員の議論を経て、再任回数の上限や定年制を選択肢として検討する。</p></li><li id="P09-01"><h3><span class="pid">P09-01</span> 就任時に学べる標準研修を整える。</h3><p>水産庁と漁協系統団体は、関係法令、会計、利益相反、役員の責任を扱うオンライン教材を整備する。漁協は研修の利用状況を点検し、試験を求める場合は必要性と受験負担を検討する。</p></li><li id="P09-02"><h3><span class="pid">P09-02</span> 役職ごとの能力要件と責任を明確にする。</h3><p>漁協の理事会は、組合長・理事・参事に求める能力、参事に委ねる権限、報告すべき事項を規程に示す。</p></li><li id="P09-03"><h3><span class="pid">P09-03</span> 職務の遂行状況を定期的に点検する。</h3><p>理事会は報告や判断の記録を確認し、不備への対応と再発防止を追跡する。監事による独立した監査は論点10で扱う。</p></li></ul></template>
+<template id="detail-g06"><h2>G06　独立した監査・経営監督</h2><p class="dialog-direction">漁協の財務・経営判断について、組合員が必要な情報を確認できるようにするとともに、員外監事、監査人材、外部理事などを通じて独立した視点から検証できる体制を整える。</p><ul class="detail-list"><li id="P10-01"><h3><span class="pid">P10-01</span> 員外監事の独立性を確保し、対象拡大を検討する。</h3><p>農林水産省は現行制度の運用を点検し、法定の設置義務がない漁協・漁連への適用拡大を、事業規模と監査上のリスクに応じた制度改正として検討する。</p></li><li id="P10-02"><h3><span class="pid">P10-02</span> 支所・地区の会計を組合員が確認できるようにする。</h3><p>水産庁は既存の決算関係書類や事業別損益の開示を踏まえ、支所別の収支、手数料の使途、出資金に関わる財務上のリスクを示す報告例を作る。 <a href="https://laws.e-gov.go.jp/law/323AC0000000242" target="_blank" rel="noopener">水協法第40〜41条</a></p></li><li id="P10-03"><h3><span class="pid">P10-03</span> 小規模漁協の監査を人材面で支える。</h3><p>水産庁と系統団体は候補者の紹介や研修を支援する。漁協は選任時の利害関係の確認、資料へのアクセス、監査の指摘への対応を規程に定める。</p></li><li id="P11-03"><h3><span class="pid">P11-03</span> 理事会に独立した視点を取り入れる。</h3><p>農林水産省は、漁協の規模に応じ、独立性のある外部理事等の自主的な導入を促す。設置を一律に義務づける案は、必要性と負担を検証したうえで制度改正として検討する。評価の対象は料金の必要性、利用しやすさ、組合員の負担に見合うサービスとし、財務・業務監査は論点10で扱う。</p></li></ul></template>
+<template id="detail-g07"><h2>G07　漁協事業・組織体制の見直し</h2><p class="dialog-direction">漁協が提供するサービスと組合員の負担を検証し、事業の必要性・採算性、支所間の業務集約、漁協間の共同化、民間委託などを比較して、地域に必要な機能を持続可能な形で維持する。</p><ul class="detail-list"><li id="P11-02"><h3><span class="pid">P11-02</span> 組合員が料金とサービスを検証する場を設ける。</h3><p>理事会は、支所別の負担、重複徴収、直接出荷時の負担をサービス内容と照らして点検し、見直し案とその理由を総会等で説明する。</p></li><li id="P12-01"><h3><span class="pid">P12-01</span> 事業の必要性と採算性を評価する。</h3><p>漁協は事業別の利用実績、収支、組合員負担を確認し、地域に必要なサービスと見直しの理由を総会等で説明する。水産庁は評価項目の例を示す。</p></li><li id="P12-02"><h3><span class="pid">P12-02</span> 支所間の業務集約・漁協間の共同化を比較する。</h3><p>漁協と漁連は、事務や設備の共同化による費用削減と、組合員の利用への影響を比較し、地域で必要な窓口やサービスを確認する。</p></li><li id="P12-03"><h3><span class="pid">P12-03</span> 民間委託と事業移管の実施条件を整理する。</h3><p>漁協は、委託後も漁協が責任を負う業務と、事業の担い手を変える場合を分け、漁業権・資源管理や施設へのアクセス、組合員の意思決定への影響を確認する。農林水産省は、既存制度で対応できない具体的な課題が確認された場合に法人制度の見直しを検討する。</p></li></ul></template>
+<template id="detail-g08"><h2>G08　公正な市場取引</h2><p class="dialog-direction">競りと相対取引の運用条件を明確にし、取引記録の保存、競争上の懸念への対応、買い手と市場運営者の利益相反への対策を通じて、公平な取引環境を整える。</p><ul class="detail-list"><li id="P13-03"><h3><span class="pid">P13-03</span> 競りと相対取引の使い分けを明確にする。</h3><p>開設者は品目、鮮度管理や安定供給の事情に応じて相対取引を認める条件を示し、運営者はその適用を記録する。</p></li><li id="P14-02"><h3><span class="pid">P14-02</span> 競争上の懸念を記録に基づいて調べる。</h3><p>市場運営者は入札・落札記録を保存し、入札への圧力や価格調整の疑いがある場合に、開設者や公正取引委員会などに相談できる手順を整える。</p></li><li id="P14-03"><h3><span class="pid">P14-03</span> 漁協が買い手になる場合の公平性を確保する。</h3><p>開設者は、漁協が買付けを行う場合の参加条件を明示し、運営も担う場合は担当や情報へのアクセスを分ける。加工・冷凍による販売手段の拡大は論点15で扱う。</p></li></ul></template>
+<template id="detail-g09"><h2>G09　価格形成・販路・加工</h2><p class="dialog-direction">流通段階ごとの価格・費用を把握し、販売先や取引方法の選択肢を広げるとともに、加工・冷凍などを活用して漁業者の手取りや事業採算の改善可能性を検証する。</p><ul class="detail-list"><li id="P15-01"><h3><span class="pid">P15-01</span> 流通段階ごとの価格・費用の実態を把握する。</h3><p>農林水産省は市場・流通事業者と協力し、魚種・流通経路ごとの価格、手数料、選別・輸送等の費用を調べ、漁業者が取引条件を比較できる形で示す。</p></li><li id="P15-02"><h3><span class="pid">P15-02</span> 販売先の選択肢を増やす。</h3><p>漁協や市場開設者は、新規買参者への販売、相対取引、共同出荷等の経路を整え、漁業者が手取りや取引条件を比較できるようにする。買参資格は論点13と連動させる。</p></li><li id="P15-03"><h3><span class="pid">P15-03</span> 加工・冷凍への振替を試行する。</h3><p>漁協と加工事業者は、鮮魚価格が下がる時期に一部を加工・冷凍に回し、保管費用や販売価格を含めて、漁業者の手取りと事業の採算への効果を確かめる。</p></li></ul></template>
+<template id="detail-g10"><h2>G10　IUU水産物の流通防止</h2><p class="dialog-direction">水産物の追跡可能性を高め、輸入証明書と漁船・取引情報の照合や高リスク取引への重点確認を通じて、IUU漁業に由来する水産物の流通防止に向けた確認体制を強化する。</p><ul class="detail-list"><li id="P16-01"><h3><span class="pid">P16-01</span> 現行制度で追跡できる範囲と残る課題を整理する。</h3><p>水産庁と経済産業省は、改正後の国内流通記録と輸入時の証明手続を比較し、対象外のマグロ類や製品形態も含めて追跡できない段階を特定する。その結果を基に追加措置を検討する。</p></li><li id="P16-02"><h3><span class="pid">P16-02</span> 輸入証明書と漁船・取引情報の照合を強化する。</h3><p>水産庁、経済産業省、税関は書類の電子化と突合を進め、船籍変更や番号・数量の不一致がある案件を抽出する。担当者が内容を確認し、必要に応じて発給当局に照会する。</p></li><li id="P16-03"><h3><span class="pid">P16-03</span> 高リスク取引への対応手順を整える。</h3><p>水産庁と税関は、魚種や取引経路、過去の照会結果に基づいて重点確認の対象を定め、疑義が残る場合の情報共有・判断手順を整理する。</p></li></ul></template>
+<template id="detail-g11"><h2>G11　資源管理と漁獲枠配分の議論の整理</h2><p class="dialog-direction">資源評価・管理目標・漁獲シナリオに基づく資源管理上の判断と、地域・漁法間の漁獲枠配分に関する判断を明確に区別し、配分案の経済・社会的な影響と判断理由を比較・説明できるようにする。</p><ul class="detail-list"><li id="P17-02"><h3><span class="pid">P17-02</span> 公開の配分協議を整える。</h3><p>水産庁・都道府県は、異なる漁法・地域の漁業者が配分案を比較できるようにする。協議期限と合意できない場合の取扱いを事前に示し、意見と判断理由を記録する。</p></li><li id="P19-01"><h3><span class="pid">P19-01</span> 資源管理と配分の議論を明確に区分する。</h3><p>水産庁は、資源評価・管理目標・漁獲シナリオを扱う議論と、地域・漁法間で枠を配分する議論を別の議題または会合として設定する。各段階の根拠と意見の扱いを記録する。</p></li><li id="P19-02"><h3><span class="pid">P19-02</span> 配分案を経済・社会的な指標で比較する。</h3><p>水産庁・都道府県は資源管理上の制約を前提に、水揚げの価値、雇用、経営継続性を漁法ごとに比較する。比較結果と判断理由は論点17の公開協議・公表手続につなげる。</p></li></ul></template>
+<template id="detail-g12"><h2>G12　委員選任・代表性・専門性</h2><p class="dialog-direction">資源管理や漁業調整の意思決定において、多様な地域・漁法・経営規模の漁業者が委員候補となれる経路を確保し、選考の透明性、専門性、中立性を高める。</p><ul class="detail-list"><li id="P20-01"><h3><span class="pid">P20-01</span> 現場の漁業者が委員候補になれる経路を整える。</h3><p>水産庁・都道府県などの会議事務局は、委員選任の規程に応じて公募・推薦を案内し、地域、漁法、経営規模の偏りを点検する。</p></li><li id="P21-01"><h3><span class="pid">P21-01</span> 公募と選考基準を分かりやすくする。</h3><p>都道府県は漁協経由以外でも募集を周知し、委員区分、選考基準、評点の考え方を示す。</p></li><li id="P21-02"><h3><span class="pid">P21-02</span> 法定の枠内で専門性・中立性を確保する。</h3><p>都道府県は研究実績、実務経験、資源管理・漁業経営の知見を総合して評価し、中立委員の利害関係を確認する。割合の変更は、農林水産省が現行の選任実態と運用改善の効果を検証した上で、法改正の検討課題とする。</p></li></ul></template>
+<template id="detail-g13"><h2>G13　審議の公開・意見聴取</h2><p class="dialog-direction">資源管理や漁業調整に関する会議の日程・議題・審議資料・議事録を確認しやすくし、傍聴、オンライン配信、書面による意見提出などを通じて、委員以外の漁業者にも議論を把握し意見を伝える機会を確保する。</p><ul class="detail-list"><li id="P20-02"><h3><span class="pid">P20-02</span> 傍聴の機会を広げる。</h3><p>会議事務局は日程・議題を早めに知らせ、オンライン傍聴や資料・録画へのアクセス方法を案内する。</p></li><li id="P20-03"><h3><span class="pid">P20-03</span> 会議に出られない人も意見を出せるようにする。</h3><p>会議事務局は書面・オンラインで意見を受け付け、審議での扱いを示す。必要に応じ、事務局だけが本人を確認し、公開資料には氏名を載せない取扱いを検討する。</p></li><li id="P21-03"><h3><span class="pid">P21-03</span> 議事録と審議資料をあわせて公開する。</h3><p>都道府県と委員会は、日程・議題の事前告知に加え、個人情報等の扱いに配慮しながら、承認事項と判断に用いた資料が対応する形で公表する。</p></li><li id="P21-04"><h3><span class="pid">P21-04</span> オンライン配信・録画公開を進める。</h3><p>都道府県と委員会は、公開できる審議を対象に配信と録画の保存・公開を進め、参加できなかった人も経過を確認できるようにする。</p></li></ul></template>
+<template id="detail-g14"><h2>G14　履行確認・効果検証・見直し</h2><p class="dialog-direction">資源管理協定、漁場改善計画、藻場回復事業などについて、対策を実施した事実と資源・環境に生じた変化を区別して記録・評価し、科学的な検証結果を継続的な見直しに活用する。</p><ul class="detail-list"><li id="P22-01"><h3><span class="pid">P22-01</span> 資源管理協定の効果検証を具体化する。</h3><p>水産庁は既存ガイドラインに沿い、魚種・漁法別の指標と評価方法の例を示し、報告は評価に必要な項目に絞る。協定参加者と都道府県は、CPUEを漁獲努力量・漁獲効率の変化、環境、資源評価・調査データとあわせて解釈し、協定の見直しに使う。</p></li><li id="P22-02"><h3><span class="pid">P22-02</span> 漁場改善計画の履行と環境変化を別々に追う。</h3><p>計画を実施する漁協等は、対策の実施記録と水質・底生生物等の測定結果を分けて報告する。認定を担当する行政庁は、欠測や悪化があれば再調査や対策の見直しにつなげる。</p></li><li id="P22-03"><h3><span class="pid">P22-03</span> 計画の内容と結果を比較できるようにする。</h3><p>都道府県と漁協等は、公開可能な目標、対策、測定結果を継続して示す。藻場回復事業についても、実施主体が事業終了後の観測方法を定め、効果を追えるようにする。</p></li><li id="P22-04"><h3><span class="pid">P22-04</span> 取組の検証を共同で進める。</h3><p>水産庁・都道府県は、全漁連、漁協、研究機関と観測方法や事例を共有し、資源変動の要因と対策の効果を検討できるデータを蓄積する。</p></li></ul></template>
+<template id="detail-appendix"><h2>旧22論点と14グループの対応</h2><p class="dialog-direction">提言IDを選ぶと、該当する提言の原文を表示します。</p><div class="table-wrap"><table><thead><tr><th scope="col">番号</th><th scope="col">旧論点名</th><th scope="col">提言ID・新グループ</th></tr></thead><tbody><tr><th scope="row">01</th><td>漁協内の地区独自ルールと、本所・県等の監督権限</td><td><a href="#g01" data-proposal="P01-01" data-slide-link>P01-01／G01</a> <a href="#g04" data-proposal="P01-02" data-slide-link>P01-02／G04</a> <a href="#g04" data-proposal="P01-03" data-slide-link>P01-03／G04</a> <a href="#g04" data-proposal="P01-04" data-slide-link>P01-04／G04</a></td></tr><tr><th scope="row">02</th><td>正組合員・准組合員の資格審査の公平性</td><td><a href="#g02" data-proposal="P02-01" data-slide-link>P02-01／G02</a> <a href="#g02" data-proposal="P02-02" data-slide-link>P02-02／G02</a> <a href="#g04" data-proposal="P02-03" data-slide-link>P02-03／G04</a> <a href="#g02" data-proposal="P02-04" data-slide-link>P02-04／G02</a></td></tr><tr><th scope="row">03</th><td>行使規則の法的位置づけ・漁協の裁量の限界</td><td><a href="#g01" data-proposal="P03-01" data-slide-link>P03-01／G01</a> <a href="#g02" data-proposal="P03-02" data-slide-link>P03-02／G02</a> <a href="#g04" data-proposal="P03-03" data-slide-link>P03-03／G04</a></td></tr><tr><th scope="row">04</th><td>行使規則の住所要件と新規参入</td><td><a href="#g03" data-proposal="P04-01" data-slide-link>P04-01／G03</a> <a href="#g01" data-proposal="P04-02" data-slide-link>P04-02／G01</a></td></tr><tr><th scope="row">05</th><td>共同漁業権の地区単位での運用・変更・統合</td><td><a href="#g01" data-proposal="P05-01" data-slide-link>P05-01／G01</a> <a href="#g03" data-proposal="P05-02" data-slide-link>P05-02／G03</a></td></tr><tr><th scope="row">06</th><td>自由漁業に対する漁協・組合長の権限</td><td><a href="#g01" data-proposal="P06-01" data-slide-link>P06-01／G01</a> <a href="#g04" data-proposal="P06-02" data-slide-link>P06-02／G04</a></td></tr><tr><th scope="row">07</th><td>漁港・係留施設の利用と漁協の管理権限</td><td><a href="#g01" data-proposal="P07-01" data-slide-link>P07-01／G01</a> <a href="#g02" data-proposal="P07-02" data-slide-link>P07-02／G02</a></td></tr><tr><th scope="row">08</th><td>漁協役員の選任・任期・定年・兼務</td><td><a href="#g05" data-proposal="P08-01" data-slide-link>P08-01／G05</a> <a href="#g05" data-proposal="P08-02" data-slide-link>P08-02／G05</a> <a href="#g05" data-proposal="P08-03" data-slide-link>P08-03／G05</a></td></tr><tr><th scope="row">09</th><td>組合長・理事・参事等の能力要件と経営責任</td><td><a href="#g05" data-proposal="P09-01" data-slide-link>P09-01／G05</a> <a href="#g05" data-proposal="P09-02" data-slide-link>P09-02／G05</a> <a href="#g05" data-proposal="P09-03" data-slide-link>P09-03／G05</a></td></tr><tr><th scope="row">10</th><td>漁協の監査・財務透明性・出資者保護</td><td><a href="#g06" data-proposal="P10-01" data-slide-link>P10-01／G06</a> <a href="#g06" data-proposal="P10-02" data-slide-link>P10-02／G06</a> <a href="#g06" data-proposal="P10-03" data-slide-link>P10-03／G06</a></td></tr><tr><th scope="row">11</th><td>漁協の事業目的・組合員への奉仕と手数料等の運営</td><td><a href="#g01" data-proposal="P11-01" data-slide-link>P11-01／G01</a> <a href="#g07" data-proposal="P11-02" data-slide-link>P11-02／G07</a> <a href="#g06" data-proposal="P11-03" data-slide-link>P11-03／G06</a></td></tr><tr><th scope="row">12</th><td>漁協という法人制度そのもののあり方</td><td><a href="#g07" data-proposal="P12-01" data-slide-link>P12-01／G07</a> <a href="#g07" data-proposal="P12-02" data-slide-link>P12-02／G07</a> <a href="#g07" data-proposal="P12-03" data-slide-link>P12-03／G07</a></td></tr><tr><th scope="row">13</th><td>卸売市場の買参権・新規参入・取引方法</td><td><a href="#g02" data-proposal="P13-01" data-slide-link>P13-01／G02</a> <a href="#g03" data-proposal="P13-02" data-slide-link>P13-02／G03</a> <a href="#g08" data-proposal="P13-03" data-slide-link>P13-03／G08</a></td></tr><tr><th scope="row">14</th><td>セリにおける談合・価格操作・競争阻害</td><td><a href="#g03" data-proposal="P14-01" data-slide-link>P14-01／G03</a> <a href="#g08" data-proposal="P14-02" data-slide-link>P14-02／G08</a> <a href="#g08" data-proposal="P14-03" data-slide-link>P14-03／G08</a></td></tr><tr><th scope="row">15</th><td>流通段階の価格形成・マージンを規制することの可否</td><td><a href="#g09" data-proposal="P15-01" data-slide-link>P15-01／G09</a> <a href="#g09" data-proposal="P15-02" data-slide-link>P15-02／G09</a> <a href="#g09" data-proposal="P15-03" data-slide-link>P15-03／G09</a></td></tr><tr><th scope="row">16</th><td>IUU漁業由来水産物の輸入・証明書確認・トレーサビリティ</td><td><a href="#g10" data-proposal="P16-01" data-slide-link>P16-01／G10</a> <a href="#g10" data-proposal="P16-02" data-slide-link>P16-02／G10</a> <a href="#g10" data-proposal="P16-03" data-slide-link>P16-03／G10</a></td></tr><tr><th scope="row">17</th><td>クロマグロ等の漁獲枠配分基準と説明の透明性</td><td><a href="#g01" data-proposal="P17-01" data-slide-link>P17-01／G01</a> <a href="#g11" data-proposal="P17-02" data-slide-link>P17-02／G11</a> <a href="#g02" data-proposal="P17-03" data-slide-link>P17-03／G02</a></td></tr><tr><th scope="row">18</th><td>沿岸・小規模漁業者への漁獲枠配分機会の公平性</td><td><a href="#g03" data-proposal="P18-01" data-slide-link>P18-01／G03</a> <a href="#g03" data-proposal="P18-02" data-slide-link>P18-02／G03</a> <a href="#g03" data-proposal="P18-03" data-slide-link>P18-03／G03</a></td></tr><tr><th scope="row">19</th><td>TACの「総量決定」と「配分決定」を同じ場で行う制度</td><td><a href="#g11" data-proposal="P19-01" data-slide-link>P19-01／G11</a> <a href="#g11" data-proposal="P19-02" data-slide-link>P19-02／G11</a></td></tr><tr><th scope="row">20</th><td>資源管理の意思決定機関の代表性</td><td><a href="#g12" data-proposal="P20-01" data-slide-link>P20-01／G12</a> <a href="#g13" data-proposal="P20-02" data-slide-link>P20-02／G13</a> <a href="#g13" data-proposal="P20-03" data-slide-link>P20-03／G13</a></td></tr><tr><th scope="row">21</th><td>海区漁業調整委員会の公募・委員構成・中立性</td><td><a href="#g12" data-proposal="P21-01" data-slide-link>P21-01／G12</a> <a href="#g12" data-proposal="P21-02" data-slide-link>P21-02／G12</a> <a href="#g13" data-proposal="P21-03" data-slide-link>P21-03／G13</a> <a href="#g13" data-proposal="P21-04" data-slide-link>P21-04／G13</a></td></tr><tr><th scope="row">22</th><td>資源管理協定・漁場改善計画等の履行確認</td><td><a href="#g14" data-proposal="P22-01" data-slide-link>P22-01／G14</a> <a href="#g14" data-proposal="P22-02" data-slide-link>P22-02／G14</a> <a href="#g14" data-proposal="P22-03" data-slide-link>P22-03／G14</a> <a href="#g14" data-proposal="P22-04" data-slide-link>P22-04／G14</a></td></tr></tbody></table></div></template>
+<script>
+const byId = (id) => document.getElementById(id);
+const stage = byId('stage');
+const deck = byId('deck');
+const slides = Array.from(deck.querySelectorAll('.slide'));
+const dialog = byId('dialog');
+const dialogBody = byId('dialog-body');
+const fullscreen = byId('fullscreen');
+let current = 0;
+
+function fit() {
+  const scale = Math.min((stage.clientWidth - 20) / 1280, (stage.clientHeight - 20) / 720);
+  deck.style.setProperty('--scale', Math.max(0.01, scale));
+}
+
+function show(index, updateHash = true, focus = true) {
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, position) => { slide.hidden = position !== current; });
+  const slide = slides[current];
+  byId('counter').value = `${current + 1} / ${slides.length}`;
+  byId('prev').disabled = current === 0;
+  byId('next').disabled = current === slides.length - 1;
+  byId('details').disabled = !byId(`detail-${slide.id}`);
+  if (updateHash && location.hash !== `#${slide.id}`) history.replaceState(null, '', `#${slide.id}`);
+  stage.scrollTop = 0;
+  if (focus) slide.querySelector('h1, h2').focus({ preventScroll: true });
+  fit();
+}
+
+function showFromHash() {
+  const index = slides.findIndex((slide) => `#${slide.id}` === location.hash);
+  show(index, false, false);
+}
+
+function showDetails(id, proposal) {
+  const template = byId(`detail-${id}`);
+  if (!template) return;
+  dialogBody.replaceChildren(template.content.cloneNode(true));
+  if (!dialog.open) dialog.showModal();
+  dialog.scrollTop = 0;
+  dialog.querySelector('button').focus({ preventScroll: true });
+  if (proposal) {
+    const row = byId(proposal);
+    row.classList.add('is-target');
+    row.scrollIntoView({ block: 'start' });
+  }
+}
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('[data-slide-link]');
+  if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const id = link.hash.slice(1);
+  const index = slides.findIndex((slide) => slide.id === id);
+  if (index < 0) return;
+  event.preventDefault();
+  show(index, true, !dialog.open);
+  if (link.dataset.proposal) showDetails(id, link.dataset.proposal);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (dialog.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  const forward = ['ArrowRight', 'PageDown'].includes(event.key) ||
+    (event.key === ' ' && !event.shiftKey && !event.target.closest('button, a'));
+  const backward = ['ArrowLeft', 'PageUp'].includes(event.key) ||
+    (event.key === ' ' && event.shiftKey && !event.target.closest('button, a'));
+  if (forward || backward || ['Home', 'End'].includes(event.key)) {
+    event.preventDefault();
+    if (event.key === 'Home') show(0);
+    else if (event.key === 'End') show(slides.length - 1);
+    else show(current + (forward ? 1 : -1));
+  }
+});
+
+byId('prev').addEventListener('click', () => show(current - 1));
+byId('next').addEventListener('click', () => show(current + 1));
+byId('contents').addEventListener('click', () => show(1));
+byId('details').addEventListener('click', () => showDetails(slides[current].id));
+byId('appendix').addEventListener('click', () => showDetails('appendix'));
+dialog.addEventListener('close', () => { dialogBody.replaceChildren(); });
+fullscreen.hidden = !document.fullscreenEnabled;
+fullscreen.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch {
+    fullscreen.hidden = true;
+  }
+});
+document.addEventListener('fullscreenchange', () => {
+  const active = Boolean(document.fullscreenElement);
+  fullscreen.textContent = active ? '全画面解除' : '全画面';
+  fullscreen.setAttribute('aria-pressed', String(active));
+  fit();
+});
+window.addEventListener('hashchange', showFromHash);
+document.documentElement.classList.add('js');
+byId('controls').hidden = false;
+showFromHash();
+new ResizeObserver(fit).observe(stage);
+</script>
+</body>
+</html>
